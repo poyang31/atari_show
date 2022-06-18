@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/atari_show/static/css/main.5f731200.css",
-    "main.js": "/atari_show/static/js/main.ba1a6791.js",
+    "main.css": "/atari_show/static/css/main.3e46d115.css",
+    "main.js": "/atari_show/static/js/main.dcf70778.js",
     "static/js/787.84330345.chunk.js": "/atari_show/static/js/787.84330345.chunk.js",
+    "static/media/icons8-line.svg": "/atari_show/static/media/icons8-line.858a6a195daa6150433d421f7459b92a.svg",
     "index.html": "/atari_show/index.html",
-    "main.5f731200.css.map": "/atari_show/static/css/main.5f731200.css.map",
-    "main.ba1a6791.js.map": "/atari_show/static/js/main.ba1a6791.js.map",
+    "main.3e46d115.css.map": "/atari_show/static/css/main.3e46d115.css.map",
+    "main.dcf70778.js.map": "/atari_show/static/js/main.dcf70778.js.map",
     "787.84330345.chunk.js.map": "/atari_show/static/js/787.84330345.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5f731200.css",
-    "static/js/main.ba1a6791.js"
+    "static/css/main.3e46d115.css",
+    "static/js/main.dcf70778.js"
   ]
 }
