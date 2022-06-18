@@ -1,15 +1,17 @@
+import * as React from "react";
+
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
-import IconButton from '@mui/material/IconButton'
-import FormControl from '@mui/material/FormControl'
-import Divider from '@mui/material/Divider'
+import IconButton from "@mui/material/IconButton"
+import FormControl from "@mui/material/FormControl"
+import Divider from "@mui/material/Divider"
 
-import FormGroup from '@mui/material/FormGroup'
+import FormGroup from "@mui/material/FormGroup"
 
-import TextField from '@mui/material/TextField'
-import Modal from '@mui/material/Modal'
+import TextField from "@mui/material/TextField"
+import Modal from "@mui/material/Modal"
 import Typography from "@mui/material/Typography";
 
 import { useHistory} from "react-router-dom";
@@ -45,7 +47,7 @@ function MemberDetail() {
     }
 
     const TriggerFile = () => {
-        document.getElementById('fileButton').click();
+        document.getElementById("fileButton").click();
     }
 
     const handleSubmit = e => { //處理確認修改事項
@@ -138,17 +140,17 @@ function MemberDetail() {
             {/* ==Modal== */}
 
             <Modal
-                    open={ModalStatus}
-                    onClose={() => setModalStatus(false)}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <div>
-                        <MemberDetailModal setModalStatus={setModalStatus}/>
-                    </div>
-                </Modal>
+                open={ModalStatus}
+                onClose={() => setModalStatus(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div>
+                    <MemberDetailModal setModalStatus={setModalStatus}/>
+                </div>
+            </Modal>
 
-                {/* ==Modal== */}
+            {/* ==Modal== */}
         </Box>
 
     );

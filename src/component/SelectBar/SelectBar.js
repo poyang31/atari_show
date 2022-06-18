@@ -1,12 +1,12 @@
 
-import * as React from 'react';
-import { useEffect } from 'react';
+import * as React from "react";
+import { useEffect } from "react";
 
-import { Box, Grid, Paper, Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { Box, Grid, Paper, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
-import LocationOptions from './LocationOptions.js';
-import ConditionOptions from './ConditionOptions.js';
+import LocationOptions from "./LocationOptions.js";
+import ConditionOptions from "./ConditionOptions.js";
 
 
 function SelectBar(props) {
@@ -14,7 +14,7 @@ function SelectBar(props) {
     const { cityData } = props;
 
     const onSubmit = () => {
-        console.log('送出');
+        console.log("送出");
     }
     
     useEffect(() => {
@@ -28,17 +28,17 @@ function SelectBar(props) {
     return (
         <Box sx={{
             minHeight: 100,
-            backgroundColor: 'text.disabled',
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
+            backgroundColor: "text.disabled",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
             
         }}>
             <Paper sx={{
-                p: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%'
+                p: "10px",
+                display: "flex",
+                flexDirection: "column",
+                width: "100%"
             }}>
                 <Grid container columns={16}>
                     <Grid item md={8}>

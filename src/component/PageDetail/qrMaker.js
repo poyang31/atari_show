@@ -1,7 +1,9 @@
-import ReactDOM from 'react-dom';
-import {QRCodeSVG} from 'qrcode.react';
+import * as React from "react";
+
+import ReactDOM from "react-dom";
+import {QRCodeSVG} from "qrcode.react";
 
 ReactDOM.render(
-  <QRCodeSVG value="https://reactjs.org/" />,
-  document.getElementById('mountNode')
+    <QRCodeSVG value="https://reactjs.org/" />,
+    document.getElementById("mountNode")
 );

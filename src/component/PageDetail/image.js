@@ -1,4 +1,6 @@
-import { Carousel } from 'react-responsive-carousel';
+import * as React from "react";
+
+import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Carousel.css";
 
@@ -7,9 +9,9 @@ export default function Carousels() {
     return (
         <Carousel sx={{backgroundColor:"#007A78" }}>
             {data.map((img,index) =>
-            <div key={index}>
-                <img alt='aa' size='lg'  src={img} />
-            </div> )}
+                <div key={index}>
+                    <img alt='aa' size='lg' src={img} />
+                </div> )}
         </Carousel>
     );
 }

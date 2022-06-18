@@ -1,36 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from '@mui/material/Typography'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import Stack from '@mui/material/Stack'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Paper from '@mui/material/Paper'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import IconButton from '@mui/material/IconButton'
-import Chip from '@mui/material/Chip'
-import FormLabel from '@mui/material/FormLabel'
-import RadioGroup from '@mui/material/RadioGroup'
-import Radio from '@mui/material/Radio'
-import Button from '@mui/material/Button'
-
-
-
-
-
-
-
-
-
-
-
-
+import Typography from "@mui/material/Typography"
+import FormControl from "@mui/material/FormControl"
+import InputLabel from "@mui/material/InputLabel"
+import Select from "@mui/material/Select"
+import MenuItem from "@mui/material/MenuItem"
+import Stack from "@mui/material/Stack"
+import TextField from "@mui/material/TextField"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import Checkbox from "@mui/material/Checkbox"
+import RadioGroup from "@mui/material/RadioGroup"
+import Radio from "@mui/material/Radio"
+import Button from "@mui/material/Button"
 
 function AddRentPages(props) {
     const { cityData } = props;
@@ -99,7 +81,7 @@ function AddRentPages(props) {
 
     const handleRoomType = e => { //偵測是否為整層住家以確定是否顯示出租樓層
         setRoomType(e.target.value);
-        if (e.target.value != "整層住家") {
+        if (e.target.value !== "整層住家") {
             setFloorStatus(true);
         } else {
             setFloorStatus(false);
@@ -109,19 +91,19 @@ function AddRentPages(props) {
     const handleSetRoom = (inputRoomNumber, RoomName) => {
         setRooms(Rooms.map((Room) => ({
             ...Room,
-            RoomNumber: Room.RoomName == RoomName ? inputRoomNumber : Room.RoomNumber
+            RoomNumber: Room.RoomName === RoomName ? inputRoomNumber : Room.RoomNumber
         })))
     }
 
 
-    const handleChangeArray = (ItemID, setArrayfunction, setArrayName) => { //用以設置CheckBox陣列
-        setArrayfunction(setArrayName.map((Item) => ({
+    const handleChangeArray = (ItemID, setArrayFunction, setArrayName) => { //用以設置CheckBox陣列
+        setArrayFunction(setArrayName.map((Item) => ({
             ...Item,
             Status: Item.id == ItemID ? !Item.Status : Item.Status
         })))
     }
 
-    const handlefile = e => { //顯示上傳照片
+    const handleFile = e => { //顯示上傳照片
         setImgs([...e.target.files]);
     }
 
@@ -136,7 +118,7 @@ function AddRentPages(props) {
     // 設定日期預設值 取出現在的日期
     const today = new Date();
     const date = today.setDate(today.getDate());
-    const defaultDateValue = new Date(date).toISOString().split('T')[0] // yyyy-mm-dd 
+    const defaultDateValue = new Date(date).toISOString().split("T")[0] // yyyy-mm-dd
 
     return (
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", height: "auto" }}>
@@ -215,7 +197,7 @@ function AddRentPages(props) {
                         >
                             <MenuItem value={""} disabled>鄉鎮市區</MenuItem>
                             {cityData[AddressCity] && cityData[AddressCity].map((area, index) => {
-                                return <MenuItem key={index} value={area['AreaName']}>{area['AreaName']}</MenuItem>
+                                return <MenuItem key={index} value={area["AreaName"]}>{area["AreaName"]}</MenuItem>
                             })}
                         </Select>
                     </FormControl>
@@ -527,7 +509,7 @@ function AddRentPages(props) {
                         <input
                             type="file"
                             hidden
-                            onChange={handlefile}
+                            onChange={handleFile}
                             multiple={true}
                         />
                     </Button>
@@ -536,9 +518,9 @@ function AddRentPages(props) {
                 <Stack direction="row" sx={{ alignItems: "center" }}> {/* 照片 */}
                     <Typography variant="h6">以上傳照片:</Typography>
                     <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap" }}>
-                        {ImgURL ? ImgURL.map((url) => {
-                            return <img src={url} width="475" height="450" alt="" />
-                        }) : null}
+                        {ImgURL && ImgURL.map((url, i) => {
+                            return <img key={i} src={url} width="475" height="450" alt={i} />
+                        })}
                     </Stack>
                 </Stack>
 

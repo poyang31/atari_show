@@ -1,11 +1,9 @@
-import React, { useEffect,  } from 'react'
-import { Box, Typography,Breadcrumbs } from '@mui/material';
-import { Link, useHistory, withRouter } from "react-router-dom";
-import HomeIcon from '@mui/icons-material/Home';
+import React, { useEffect } from "react"
+import { Box, Typography,Breadcrumbs } from "@mui/material";
+import { Link, withRouter } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 function BreadCrumbs(props) {
-    const { go, goBack, goForward } = useHistory();
-
     const setBreadcrumbs = () => {
         const HistoryList = props.match.path;
         return HistoryList.split("/");
@@ -22,12 +20,10 @@ function BreadCrumbs(props) {
                 <Link underline="hover" color="inherit" to="/">
                     <HomeIcon />
                 </Link>
-                
                 <Typography color="text.primary">Breadcrumbs</Typography>
             </Breadcrumbs>
         </Box>
     );
 }
-BreadCrumbs = withRouter(BreadCrumbs);
 
-export default BreadCrumbs;
+export default withRouter(BreadCrumbs);

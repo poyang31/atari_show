@@ -6,14 +6,14 @@ const initialState = {
 }
 
 const Member = (state = initialState, { type, payload }) => {
-  switch (type) {
+    switch (type) {
 
-  case "SetMemberUserName":
-    return { ...state,username:payload.username }
+    case "SetMemberUserName":
+        return { ...state,username:payload.username }
 
-  default:
-    return state
-  }
+    default:
+        return state
+    }
 }
 
 export default Member;
