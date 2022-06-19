@@ -1,16 +1,19 @@
 import * as React from "react";
+import {Link} from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import SendIcon from "@mui/icons-material/Send";
+import LoginIcon from "@mui/icons-material/Login";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import {Link} from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 const theme = createTheme();
@@ -50,6 +53,16 @@ export default function SignUp() {
                         sx={{mt: 3}}
                     >
                         <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="Phone"
+                                    label="使用者代號"
+                                    name="Phone"
+                                    autoComplete="Phone"
+                                />
+                            </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
@@ -116,15 +129,16 @@ export default function SignUp() {
                                     control={
                                         <Checkbox value="allowExtraEmails" color="primary"/>
                                     }
-                                    label="我願意收到最新通知的Email"
+                                    label="我同意 隱私權政策"
                                 />
                             </Grid>
                         </Grid>
                         <Button
                             type="submit"
                             fullWidth
-                            variant="outlined"
+                            variant="contained"
                             sx={{mt: 3, mb: 2}}
+                            endIcon={<SendIcon/>}
                             onClick={(e) => {
                                 e.preventDefault();
                                 window.location.href = "/";
@@ -132,13 +146,16 @@ export default function SignUp() {
                         >
                             註冊
                         </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link to="/" variant="body2">
-                                    已經有帳號了嗎? 來登入吧
-                                </Link>
-                            </Grid>
-                        </Grid>
+                        <Button
+                            component={Link}
+                            fullWidth
+                            variant="outlined"
+                            endIcon={<LoginIcon/>}
+                            sx={{ mb: 2}}
+                            to="/sign-in"
+                        >
+                            已經有帳號了嗎? 來登入吧
+                        </Button>
                     </Box>
                 </Box>
             </Container>

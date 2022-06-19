@@ -41,14 +41,14 @@ function App() {
                         <Route exact path="/">
                             <IndexPage cityData={cityData}/>
                         </Route>
-                        <Route exact path="/RentPage" component={RentPage}/>
-                        <Route exact path="/AddRentPage">
+                        <Route exact path="/rent-page" component={RentPage}/>
+                        <Route exact path="/add-rent-page">
                             <AddRentPage cityData={cityData}/>
                         </Route>
-                        <Route exact path="/MemberDetail" component={MemberDetail}/>
-                        <Route exact path="/PageDetail/:id" component={PageDetail}/>
-                        <Route exact path="/SignUp" component={SignUp}/>
-                        <Route exact path="/SignIn" component={SignIn}/>
+                        <Route exact path="/member-detail" component={MemberDetail}/>
+                        <Route exact path="/page-detail/:id" component={PageDetail}/>
+                        <Route exact path="/sign-up" component={SignUp}/>
+                        <Route exact path="/sign-in" component={SignIn}/>
                         <Route path="*">Not Found. ERROR: 404</Route>
                     </Switch>
                 </Box>

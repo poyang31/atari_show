@@ -8,18 +8,21 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import SendIcon from "@mui/icons-material/Send";
 import Typography from "@mui/material/Typography";
+import SendIcon from "@mui/icons-material/Send";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
+import client from "../../client/http";
 import {SetMember} from "../../actions";
 
 const theme = createTheme();
+
+const login = (username, password) => client("/login", {method: "POST"}, {username, password});
 
 export default function SignIn() {
     const dispatch = useDispatch();
@@ -27,13 +30,18 @@ export default function SignIn() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get("username"),
-            password: data.get("password"),
-        });
-        // SetStoreMember
-        dispatch(SetMember(data.get("email")));
-        history.push("./");
+        login(data.get("username"), data.get("password"))
+            .then((res) => {
+                console.log(res);
+                // SetStoreMember
+                if (res.body === 1) {
+                    dispatch(SetMember(data.get("email")));
+                    history.push("./");
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     };
 
     return (
@@ -86,17 +94,22 @@ export default function SignIn() {
                         <Button
                             type="submit"
                             fullWidth
-                            variant="outlined"
+                            variant="contained"
                             endIcon={<SendIcon/>}
                             sx={{mt: 3, mb: 2}}
                         >
                             登入
                         </Button>
-                        <Grid container>
-                            <Grid item>
-                                <Link to="./signup">還沒有帳號嗎? 註冊</Link>
-                            </Grid>
-                        </Grid>
+                        <Button
+                            component={Link}
+                            fullWidth
+                            variant="outlined"
+                            endIcon={<PersonAddAltIcon/>}
+                            sx={{ mb: 2}}
+                            to="/sign-up"
+                        >
+                            還沒有帳號嗎? 註冊
+                        </Button>
                     </Box>
                 </Box>
             </Container>

@@ -35,16 +35,16 @@ export default function NavBar() {
 
                     <Button color="inherit" component={Link} to="/">首頁</Button>
 
-                    <Button color="inherit" component={Link} to="/RentPage">租房資料</Button>
+                    <Button color="inherit" component={Link} to="/rent-page">租房資料</Button>
 
-                    <Button color="inherit" component={Link} to="/AddRentPage">刊登房屋</Button>
+                    <Button color="inherit" component={Link} to="/add-rent-page">刊登房屋</Button>
 
                     {
                         MemberData.username === ""
                             ?
-                            <Button color="inherit" component={Link} to="/SignIn">登入</Button>
+                            <Button color="inherit" component={Link} to="/sign-in">登入</Button>
                             :
-                            <IconButton component={Link} to="/MemberDetail">
+                            <IconButton component={Link} to="/member-detail">
                                 <Avatar alt={MemberData.username} src="../img/female.png"/>
                             </IconButton>
                     }
