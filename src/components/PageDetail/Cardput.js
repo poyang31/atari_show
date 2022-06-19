@@ -7,23 +7,25 @@ import {QRCodeSVG} from "qrcode.react";
 export default function Cardput(props) {
     const {landlordStatus, landlordNickName, phoneNumber, lineAddress} = props.landlord;
     const displayPhoneNumber = `${phoneNumber.substring(0, 4)}-${phoneNumber.substring(4, 7)}-${phoneNumber.substring(7)}`;
-    var landlordType;
-    switch (landlordStatus) { //0為房東, 1為代理人, 2為仲介
-    case 0:
+    let landlordType;
+    //0為房東, 1為代理人, 2為仲介
+    switch (landlordStatus) {
+    case 0: {
         landlordType = "房東";
         break;
-
-    case 1:
+    }
+    case 1: {
         landlordType = "代理人";
         break;
-
-    case 2:
+    }
+    case 2: {
         landlordType = "仲介";
         break;
-
-    default:
+    }
+    default: {
         landlordType = "房東";
         break;
+    }
     }
 
     return (

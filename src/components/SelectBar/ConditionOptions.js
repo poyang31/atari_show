@@ -22,35 +22,34 @@ function ConditionOptions() {
     const handleChangeRoomType = (event, newValue) => { // 修改房間類型
         dispatch(SetSearch("setRoomType", newValue));
         switch (newValue) {
-        case "整層住家":
-            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1,"衛浴": 1, "廳數": 1}));
+        case "整層住家": {
+            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1, "衛浴": 1, "廳數": 1}));
             break;
-
-        case "獨立套房":
-            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1,"衛浴": 1, "廳數": 0}));
+        }
+        case "獨立套房": {
+            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1, "衛浴": 1, "廳數": 0}));
             break;
-
-        case "分租套房":
-            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1,"衛浴": 1, "廳數": 1}));
+        }
+        case "分租套房": {
+            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1, "衛浴": 1, "廳數": 1}));
             break;
-
-        case "分租雅房":
-            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1,"衛浴": 0, "廳數": 1}));
+        }
+        case "分租雅房": {
+            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1, "衛浴": 0, "廳數": 1}));
             break;
-
-        case "雅房":
-            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1,"衛浴": 0, "廳數": 0}));
+        }
+        case "雅房": {
+            dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, "房間": 1, "衛浴": 0, "廳數": 0}));
             break;
-
-        default:
+        }
+        default: {
             break;
+        }
         }
     }
 
     const handleChangeRoom = (event, name) => { // 修改房屋格局
-
         if (event.target.value >= 0) { dispatch(SetSearch("setRoom", {...searchData.houseInfo.room, [name]: parseInt(event.target.value)})); }
-
     }
 
     const handleChangeRent = (event, newValue) => { // 修改租金範圍

@@ -14,7 +14,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocationOptions from "./LocationOptions.js";
 import ConditionOptions from "./ConditionOptions.js";
 
-
 function SelectBar(props) {
     const SearchData = useSelector(state => state.Search);
     const { cityData } = props;
@@ -85,7 +84,6 @@ function SelectBar(props) {
                     </Grid>
                 </Box>
             </Paper>
-
         </Box>
     )
 }

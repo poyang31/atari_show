@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 
 import {Link, useHistory} from "react-router-dom"
 import {useDispatch} from "react-redux";
@@ -27,20 +27,28 @@ const login = (username, password) => client("/login", {method: "POST"}, {userna
 export default function SignIn() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const [status, setStatus] = useState("");
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        setStatus("");
         const data = new FormData(event.currentTarget);
         login(data.get("username"), data.get("password"))
             .then((res) => {
                 console.log(res);
+                // Store AuthToken
+                localStorage.setItem("atari_token", res.authToken);
                 // SetStoreMember
-                if (res.body === 1) {
-                    dispatch(SetMember(data.get("email")));
-                    history.push("./");
-                }
+                dispatch(SetMember(data.get("username")));
+                history.push("./");
             })
             .catch((e) => {
-                console.log(e)
+                console.error(e);
+                if (e.status === 404) {
+                    setStatus("使用者尚未註冊")
+                } else {
+                    setStatus("未知錯誤")
+                }
             })
     };
 
@@ -62,6 +70,14 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         登入
                     </Typography>
+                    <Typography
+                        component="p"
+                        variant="p"
+                        style={{color:"#e00"}}
+                        sx={{mt: 1}}
+                    >
+                        {status}
+                    </Typography>
                     <Box
                         component="form"
                         onSubmit={handleSubmit}
@@ -73,7 +89,7 @@ export default function SignIn() {
                             required
                             fullWidth
                             id="username"
-                            label="使用者暱稱"
+                            label="使用者代號"
                             name="username"
                             autoComplete="username"
                         />

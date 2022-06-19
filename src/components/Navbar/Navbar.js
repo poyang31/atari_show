@@ -10,7 +10,6 @@ import Avatar from "@mui/material/Avatar";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-
 export default function NavBar() {
     const MemberData = useSelector(state => state.Member);
     return (
@@ -32,21 +31,17 @@ export default function NavBar() {
                             </Typography>
                         </IconButton>
                     </Box>
-
                     <Button color="inherit" component={Link} to="/">首頁</Button>
-
                     <Button color="inherit" component={Link} to="/rent-page">租房資料</Button>
-
                     <Button color="inherit" component={Link} to="/add-rent-page">刊登房屋</Button>
-
                     {
-                        MemberData.username === ""
-                            ?
+                        MemberData.username === "" ? (
                             <Button color="inherit" component={Link} to="/sign-in">登入</Button>
-                            :
+                        ) : (
                             <IconButton component={Link} to="/member-detail">
                                 <Avatar alt={MemberData.username} src="../img/female.png"/>
                             </IconButton>
+                        )
                     }
                 </Toolbar>
             </AppBar>

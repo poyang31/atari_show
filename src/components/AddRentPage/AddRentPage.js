@@ -207,7 +207,7 @@ function AddRentPage(props) {
                         </Select>
                     </FormControl>
                     <TextField
-                        id="Address"
+                        id="address"
                         label="地址名稱"
                         sx={{pl: 1}}
                         value={Address}
@@ -219,19 +219,19 @@ function AddRentPage(props) {
                     <Stack direction="row" sx={{alignItems: "center"}}> {/* 樓層 */}
                         <Typography variant="h6">樓層:</Typography>
                         <TextField
-                            id="Floor"
+                            id="floor"
                             label="樓層"
                             sx={{pl: 1}}
                         />
                         樓之
                         <TextField
-                            id="RoomID"
+                            id="room-id"
                             label="編號"
                             sx={{pl: 1, pr: 3}}
                         />
                         總樓層:
                         <TextField
-                            id="AllFloornumber"
+                            id="all-floor-number"
                             label="總樓層數量"
                             sx={{pl: 1}}
                         />

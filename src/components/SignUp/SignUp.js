@@ -1,5 +1,6 @@
-import * as React from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -15,17 +16,41 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import client from "../../client/http";
+import {SetMember} from "../../actions";
 
 const theme = createTheme();
 
+const register = (username, password) => client("/register", {method: "POST"}, {username, password});
+
 export default function SignUp() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const [status, setStatus] = useState("");
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        setStatus("");
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get("email"),
-            password: data.get("password"),
-        });
+        register(data.get("username"), data.get("password"))
+            .then((res) => {
+                console.log(res);
+                // Store AuthToken
+                localStorage.setItem("atari_token", res.authToken);
+                // SetStoreMember
+                dispatch(SetMember(data.get("username")));
+                history.push("./");
+            })
+            .catch((e) => {
+                console.error(e);
+                if (e.status === 409) {
+                    setStatus("使用者代號已被使用")
+                } else if (e.status === 400) {
+                    setStatus("請填寫必填欄位")
+                } else {
+                    setStatus("未知錯誤")
+                }
+            });
     };
 
     return (
@@ -46,6 +71,14 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         註冊
                     </Typography>
+                    <Typography
+                        component="p"
+                        variant="p"
+                        style={{color:"#e00"}}
+                        sx={{mt: 1}}
+                    >
+                        {status}
+                    </Typography>
                     <Box
                         component="form"
                         noValidate
@@ -57,10 +90,10 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="Phone"
+                                    id="username"
                                     label="使用者代號"
-                                    name="Phone"
-                                    autoComplete="Phone"
+                                    name="username"
+                                    autoComplete="username"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -139,10 +172,6 @@ export default function SignUp() {
                             variant="contained"
                             sx={{mt: 3, mb: 2}}
                             endIcon={<SendIcon/>}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                window.location.href = "/";
-                            }}
                         >
                             註冊
                         </Button>

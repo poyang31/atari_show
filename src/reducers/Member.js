@@ -7,12 +7,12 @@ const initialState = {
 
 const Member = (state = initialState, {type, payload}) => {
     switch (type) {
-
-    case "SetMemberUserName":
+    case "SetMemberUserName": {
         return {...state, username: payload.username}
-
-    default:
+    }
+    default: {
         return state
+    }
     }
 }
 
