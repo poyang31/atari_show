@@ -74,7 +74,7 @@ export default function SignUp() {
                     <Typography
                         component="p"
                         variant="p"
-                        style={{color:"#e00"}}
+                        color="#e00"
                         sx={{mt: 1}}
                     >
                         {status}

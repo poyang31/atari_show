@@ -33,7 +33,7 @@ function MemberDetail() {
         history.push("./");
     }
 
-    const handlefile = e => { //更改使用者頭像
+    const handleFile = e => { //更改使用者頭像
         const Imgfile = [...e.target.files];
         if (Imgfile.length < 1) return;
         const newImageUrls = [];
@@ -79,8 +79,12 @@ function MemberDetail() {
                     spacing={0.1}> {/* 切成左右邊 左邊顯示可更改內容 右邊顯示頭像 */}
                     <Box sx={{width: "35rem"}}> {/* 左邊區塊 顯示可更改內容 */}
                         <FormControl component="form" onSubmit={handleSubmit}>
-                            <Typography variant="h2" color="initial"
-                                sx={{textAlign: "center", mb: 2}}>修改會員資訊</Typography>
+                            <Typography
+                                variant="h5" color="initial"
+                                sx={{textAlign: "center", mb: 2}}
+                            >
+                                修改會員資訊
+                            </Typography>
                             <Divider sx={{m: 1}}/>
                             <FormGroup>
                                 <Stack direction={"column"} spacing={2}>
@@ -125,20 +129,38 @@ function MemberDetail() {
                             </Button>
                         </FormControl>
                     </Box>
-
-
-                    <Stack sx={{display: "flex", justifyContent: "center"}}> {/* 右邊區塊 顯示頭像 */}
-                        <input id="fileButton" type="file" hidden onChange={handlefile}/>
+                    <Stack>{/* 右邊區塊 顯示頭像 */}
+                        <input id="fileButton" type="file" hidden onChange={handleFile}/>
                         <Box>
                             <IconButton onClick={TriggerFile}> {/* 點擊時觸發上面的input File */}
-                                <Avatar alt={MemberData.username} src={imgSrc ? imgSrc[0] : ""}
-                                    sx={{width: "20vh", height: "20vh"}}/>
+                                <Avatar
+                                    alt={MemberData.username}
+                                    src={imgSrc ? imgSrc[0] : ""}
+                                    sx={{width: "20vh", height: "20vh"}}
+                                />
                             </IconButton>
-                            <Typography variant="h5" color="initial" sx={{textAlign: "center"}}>點擊頭像更改頭像</Typography>
+                            <Box sx={{textAlign: "center"}}>
+                                <Typography variant="p" color="#333">
+                                    點擊頭像更改頭像
+                                </Typography>
+                            </Box>
                         </Box>
-                        <Stack direction={"row"} sx={{pt: "2rem"}}> {/* 下方登出列 */}
-                            <Button sx={{mr: 2}} variant="outlined" onClick={() => setModalStatus(true)}>更改密碼</Button>
-                            <Button sx={{mr: 2}} variant="contained" color="warning" onClick={handleLogout}>登出</Button>
+                        <Stack> {/* 下方登出列 */}
+                            <Button
+                                sx={{mt: 2}}
+                                variant="outlined"
+                                onClick={() => setModalStatus(true)}
+                            >
+                                更改密碼
+                            </Button>
+                            <Button
+                                sx={{mt: 2}}
+                                variant="contained"
+                                color="warning"
+                                onClick={handleLogout}
+                            >
+                                登出
+                            </Button>
                         </Stack>
                     </Stack>
                 </Stack>
