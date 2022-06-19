@@ -2,18 +2,19 @@ import * as React from "react";
 
 import Box from "@mui/material/Box";
 
-import { Route, Switch, HashRouter } from "react-router-dom"
-import IndexPage from "./component/IndexPage/IndexPage";
-import RentPages from "./component/RentPages/RentPages";
-import PageDetail from "./component/PageDetail/PageDetail";
-import NavBar from "./component/Navbar/Navbar";
-import SignUp from "./component/SignUp/signup";
-import SignIn from "./component/SignIn/signin";
-import Footer from "./component/Footer/Footer";
-import AddRentPages from "./component/AddRentPages/AddRentPages";
+import {HashRouter, Route, Switch} from "react-router-dom"
+import IndexPage from "./components/IndexPage/IndexPage";
+import RentPage from "./components/RentPage/RentPage";
+import PageDetail from "./components/PageDetail/PageDetail";
+import NavBar from "./components/Navbar/Navbar";
+import SignUp from "./components/SignUp/SignUp";
+import SignIn from "./components/SignIn/SignIn";
+import Footer from "./components/Footer/Footer";
+import AddRentPage from "./components/AddRentPage/AddRentPage";
 
 import cityCountyData from "./data/CityCountyData.json";
-import MemberDetail from "./component/MemberDetail/MemberDetail";
+import MemberDetail from "./components/MemberDetail/MemberDetail";
+
 const cityData = Object.fromEntries(cityCountyData.map((city) => [city.CityName, city.AreaList]))
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
                         minHeight: 50
                     }}>
                     {/* Navbar here */}
-                    <NavBar />
+                    <NavBar/>
                 </Box>
                 <Box fullWidth
                     sx={{
@@ -37,18 +38,18 @@ function App() {
                         // backgroundColor: '#fcba03',
                     }}>
                     <Switch>
-                        <Route exact path='/'>
-                            <IndexPage cityData={cityData} />
+                        <Route exact path="/">
+                            <IndexPage cityData={cityData}/>
                         </Route>
-                        <Route exact path='/RentPages' component={RentPages} />
-                        <Route exact path='/AddRentPages' >
-                            <AddRentPages cityData={cityData} />
+                        <Route exact path="/RentPage" component={RentPage}/>
+                        <Route exact path="/AddRentPage">
+                            <AddRentPage cityData={cityData}/>
                         </Route>
-                        <Route exact path='/MemberDetail' component={MemberDetail} />
-                        <Route exact path='/PageDetail/:id' component={PageDetail} />
-                        <Route exact path="/SignUp" component={SignUp} />
-                        <Route exact path="/SignIn" component={SignIn} />
-                        <Route path='*'>Not Found. ERROR: 404</Route>
+                        <Route exact path="/MemberDetail" component={MemberDetail}/>
+                        <Route exact path="/PageDetail/:id" component={PageDetail}/>
+                        <Route exact path="/SignUp" component={SignUp}/>
+                        <Route exact path="/SignIn" component={SignIn}/>
+                        <Route path="*">Not Found. ERROR: 404</Route>
                     </Switch>
                 </Box>
 
@@ -57,7 +58,7 @@ function App() {
                         minHeight: 50
                     }}>
                     {/* Footer here */}
-                    <Footer />
+                    <Footer/>
                 </Box>
             </Box>
         </HashRouter>

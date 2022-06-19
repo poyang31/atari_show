@@ -5,12 +5,22 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended"
   ],
-  "plugins": ["react", "import", "jsx-a11y"],
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y"
+  ],
   "rules": {
     "react/prop-types": 0,
-    "indent": ["error", 4],
+    "indent": [
+      "error",
+      4
+    ],
     "linebreak-style": 1,
-    "quotes": ["error", "double"]
+    "quotes": [
+      "error",
+      "double"
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -30,8 +40,14 @@
     },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx"],
-        "moduleDirectory": ["src", "node_modules"]
+        "extensions": [
+          ".js",
+          ".jsx"
+        ],
+        "moduleDirectory": [
+          "src",
+          "node_modules"
+        ]
       }
     }
   }
