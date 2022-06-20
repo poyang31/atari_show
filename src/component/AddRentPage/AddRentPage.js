@@ -13,9 +13,19 @@ import Checkbox from "@mui/material/Checkbox"
 import RadioGroup from "@mui/material/RadioGroup"
 import Radio from "@mui/material/Radio"
 import Button from "@mui/material/Button"
+import client from "../../client/http";
+
+const sendData = (
+    username,
+    password
+) => client("/house", {method: "POST"}, {
+    username,
+    password
+});
 
 function AddRentPage(props) {
     const {cityData} = props;
+    const [status, setStatus] = useState("");
     //存放資料
     const [floorStatus, setFloorStatus] = useState(false); //出租樓層
     const [addressCity, setAddressCity] = useState(""); //地址縣市
@@ -77,6 +87,22 @@ function AddRentPage(props) {
         {id: 7, rentMoneyItem: "瓦斯費", status: false},
     ]);
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        sendData(
+            data.get("username"),
+            data.get("password")
+        )
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((e) => {
+                console.error(e)
+                setStatus("未知錯誤")
+            });
+    };
+
     const CountryArray = Object.keys(cityData);
 
     const handleRoomType = e => { //偵測是否為整層住家以確定是否顯示出租樓層
@@ -121,16 +147,27 @@ function AddRentPage(props) {
     const defaultDateValue = new Date(date).toISOString().split("T")[0] // yyyy-mm-dd
 
     return (
-        <Box sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            height: "auto"
-        }}>
+        <Box
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+                height: "auto"
+            }}
+            component="form"
+            onSubmit={handleSubmit}
+        >
+            <Typography
+                component="p"
+                variant="p"
+                color="#e00"
+                sx={{mt: 1}}
+            >
+                {status}
+            </Typography>
             <Typography variant="h4" color="initial">請選擇欲出租的房屋類型</Typography>
             <Stack sx={{border: 1, borderColor: "grey.200", width: "60%", p: 2}} spacing={2}>
-
                 <Stack direction="row" sx={{alignItems: "center"}}> {/* 房屋類型 */}
                     <Typography variant="h6">房屋類型:</Typography>
                     <FormControl>
@@ -385,7 +422,7 @@ function AddRentPage(props) {
                     <Typography variant="h6">性別要求:</Typography>
                     <FormControl>
                         <RadioGroup row name="row-radio-buttons-group" value={SexRequirement}
-                            onChange={e => setSexRequirement(e.target.value)}>
+                                    onChange={e => setSexRequirement(e.target.value)}>
                             <FormControlLabel value="限女性" control={<Radio/>} label="限女性"/>
                             <FormControlLabel value="限男性" control={<Radio/>} label="限男性"/>
                             <FormControlLabel value="皆可" control={<Radio/>} label="皆可"/>
@@ -397,7 +434,7 @@ function AddRentPage(props) {
                     <Typography variant="h6">開伙:</Typography>
                     <FormControl>
                         <RadioGroup row name="row-radio-buttons-group" value={ableToFire}
-                            onChange={e => setAbleToFire(e.target.value)}>
+                                    onChange={e => setAbleToFire(e.target.value)}>
                             <FormControlLabel value={true} control={<Radio/>} label="可"/>
                             <FormControlLabel value={false} control={<Radio/>} label="不可"/>
                         </RadioGroup>
@@ -408,7 +445,7 @@ function AddRentPage(props) {
                     <Typography variant="h6">養寵物:</Typography>
                     <FormControl>
                         <RadioGroup row name="row-radio-buttons-group" value={AblePet}
-                            onChange={e => setAblePet(e.target.value)}>
+                                    onChange={e => setAblePet(e.target.value)}>
                             <FormControlLabel value={true} control={<Radio/>} label="可"/>
                             <FormControlLabel value={false} control={<Radio/>} label="不可"/>
                         </RadioGroup>
@@ -418,9 +455,9 @@ function AddRentPage(props) {
                 <Stack direction="row" sx={{alignItems: "center"}}> {/* 可遷入日 */}
                     <Typography variant="h6">可遷入日:</Typography>
                     <input type="date" id="ableToGetInDate" name="ableToGetInDate" style={{height: 30}}
-                        value={ableToGetInDate} onChange={e => setAbleToGetInDate(e.target.value)}/>
+                           value={ableToGetInDate} onChange={e => setAbleToGetInDate(e.target.value)}/>
                     <Button variant="contained" color="primary" sx={{ml: 3}}
-                        onClick={() => setAbleToGetInDate(defaultDateValue)}>
+                            onClick={() => setAbleToGetInDate(defaultDateValue)}>
                         可隨時遷入
                     </Button>
                 </Stack>
@@ -542,7 +579,6 @@ function AddRentPage(props) {
                         取消
                     </Button>
                 </Stack>
-
             </Stack>
         </Box>
     );
