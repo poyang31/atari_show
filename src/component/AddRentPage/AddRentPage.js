@@ -80,10 +80,81 @@ function AddRentPage(props) {
     ]);
 
     const sendData = () => client("/house", {method: "POST"}, {
+        houseInfo: {
+            houseSize,
+            houseType,
+            roomType,
+            room
+        },
+        price,
+        depositMethod,
+        rentIncludes,
+        houseFace,
+        title,
+        contact: {
+            lineID,
+            phoneNumber
+        },
+        houseDescription,
+        equipmentAndServices: {
+            condition,
+            houseRule,
+            equipment,
+            service,
+            publicUtilities
+        },
+        address: {
+            city,
+            township,
+            others
+        },
+        isRented ,
+        rentInfo: {
+            date ,
+            atLeastTime
+        },
+        isRemoved
     });
 
     const handleSend = () => {
-        sendData()
+        sendData(
+            {
+                houseInfo: {
+                    houseSize:squareFeet,
+                    houseType:houseType,
+                    roomType:roomType,
+                    room:"房間",
+                },
+                price:rentMoney,
+                depositMethod:deposit,
+                rentIncludes:rentMoneyHaveArray.filter(data=>data.status == true),
+                houseFace:HouseForward,
+                title:Title,
+                contact: {
+                    lineID:"UserLineID",
+                    phoneNumber:"0970540864",
+                },
+                houseDescription:Describe,
+                equipmentAndServices: {
+                    condition:IdentifyRequirement,
+                    houseRule:rentMoneyHaveArray,
+                    equipment:furnitureArray,
+                    service:ServiceArray,
+                    publicUtilities:PublicFacilityArray
+                },
+                address: {
+                    city:addressCity,
+                    township:addressArea,
+                    others:Address
+                },
+                isRented:false,
+                rentInfo: {
+                    date:ableToGetInDate ,
+                    atLeastTime:ShortestRentTime
+                },
+                isRemoved:false,
+            }
+        )
             .then((res) => {
                 console.log(res)
             })
