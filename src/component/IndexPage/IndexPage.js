@@ -6,12 +6,15 @@ import BreadCrumbs from "../BreadCrumb/BreadCrumb";
 
 import {
     Box,
+    CardContent,
+    Container,
     IconButton,
     ImageList,
     ImageListItem,
     ImageListItemBar,
     Pagination,
-    Popover
+    Popover,
+    Typography
 } from "@mui/material";
 
 function IndexPage(props) {
@@ -59,93 +62,119 @@ function IndexPage(props) {
     }
 
     return (
-        <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: 800
-        }}>
+        <>
+            <Container>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    minHeight: 500
+                }}>
+                    <CardContent>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            Home Less Helper
+                        </Typography>
+                        <Typography variant="h1">
+                            我愛房東網
+                        </Typography>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                            找到你夢寐以求的房子
+                        </Typography>
+                    </CardContent>
+                </Box>
+            </Container>
+            <hr color="#eee" />
             <Box sx={{
                 display: "flex",
-                justifyContent: "space-between",
-                px: 10,
-                pt: 3
+                flexDirection: "column",
+                minHeight: 800
             }}>
-                <BreadCrumbs/>
-                <IconButton
-                    aria-describedby={popoverId}
-                    variant="contained"
-                    onClick={handleClickPopover}
-                >
-                    <SearchIcon />
-                </IconButton>
-                <Popover
-                    id={popoverId}
-                    open={openPopover}
-                    anchorEl={anchorEl}
-                    onClose={handleClosePopover}
-                    anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
-                    }}
-                >
-                    <SelectBar cityData={cityData}/>
-                </Popover>
-            </Box>
-            <Box sx={{px: 10, pb: 3}}>
-                <ImageList cols={4} rowHeight={250}
-                    sx={{
-                        width: "auto",
-                        minHeight: 650,
-                    }}>
-                    {dataList.map((data) => {
-                        return (
-                            <ImageListItem
-                                key={data.id}
-                                sx={{
-                                    width: 350,
-                                    p: 3,
-                                    border: 1,
-                                    borderColor: "#fff",
-                                    borderRadius: 5,
-                                    ":hover": {
-                                        borderColor: "#eee",
-                                    },
-                                }}
-                            >
-                                <Link to={`/page-detail/${data.id}`}>
-                                    <img
-                                        alt={data.id}
-                                        style={{width: 350, height: 200}}
-                                        src={data.src}
-                                        loading="lazy"
-                                    />
-                                </Link>
-                                <ImageListItemBar
-                                    title={"刊登日期:"}
-                                    subtitle={<span>{data.date}</span>}
-                                    position="below"
-                                />
-                            </ImageListItem>
-                        )
-                    })}
-                </ImageList>
-            </Box>
-            <Box
-                sx={{
+                <Box sx={{
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    pb: 9
+                    justifyContent: "space-between",
+                    px: 10,
+                    pt: 3
                 }}>
-                <Pagination
-                    count={11}
-                    defaultPage={1}
-                    boundaryCount={2}
-                    size="large"
-                    onClick={handlePageClick}
-                />
+                    <BreadCrumbs/>
+                    <IconButton
+                        aria-describedby={popoverId}
+                        variant="contained"
+                        onClick={handleClickPopover}
+                    >
+                        <SearchIcon />
+                    </IconButton>
+                    <Popover
+                        id={popoverId}
+                        open={openPopover}
+                        anchorEl={anchorEl}
+                        onClose={handleClosePopover}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                        }}
+                    >
+                        <SelectBar cityData={cityData}/>
+                    </Popover>
+                </Box>
+                <Box sx={{px: 10, pb: 3}}>
+                    <ImageList
+                        cols={4}
+                        rowHeight={250}
+                        sx={{
+                            width: "auto",
+                            minHeight: 650,
+                        }}
+                    >
+                        {dataList.map((data) => {
+                            return (
+                                <ImageListItem
+                                    key={data.id}
+                                    sx={{
+                                        width: 350,
+                                        p: 3,
+                                        border: 1,
+                                        borderColor: "#fff",
+                                        borderRadius: 5,
+                                        ":hover": {
+                                            borderColor: "#eee",
+                                        },
+                                    }}
+                                >
+                                    <Link to={`/page-detail/${data.id}`}>
+                                        <img
+                                            alt={data.id}
+                                            style={{width: 350, height: 200}}
+                                            src={data.src}
+                                            loading="lazy"
+                                        />
+                                    </Link>
+                                    <ImageListItemBar
+                                        title={"刊登日期:"}
+                                        subtitle={<span>{data.date}</span>}
+                                        position="below"
+                                    />
+                                </ImageListItem>
+                            )
+                        })}
+                    </ImageList>
+                </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        pb: 9
+                    }}>
+                    <Pagination
+                        count={11}
+                        defaultPage={1}
+                        boundaryCount={2}
+                        size="large"
+                        onClick={handlePageClick}
+                    />
+                </Box>
             </Box>
-        </Box>
+        </>
     );
 }
 

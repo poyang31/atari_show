@@ -16,7 +16,7 @@ function NotFoundPage() {
         <Container>
             <Box sx={{ mb: 5 }}>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    或許蒸發了，就像愛情一樣
+                    或許蒸發了，就像錢錢一樣
                 </Typography>
                 <hr color="#eee" />
             </Box>

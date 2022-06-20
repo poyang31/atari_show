@@ -3,7 +3,6 @@ import {Link, withRouter} from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 
 import {
-    Box,
     Breadcrumbs,
     Typography
 } from "@mui/material";
@@ -20,14 +19,14 @@ function BreadCrumb(props) {
     }, []);
 
     return (
-        <Box>
+        <>
             <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" color="inherit" to="/">
-                    <HomeIcon/>
+                <Link to="/">
+                    <HomeIcon sx={{color: "#111"}} />
                 </Link>
                 <Typography color="text.primary">房屋照片</Typography>
             </Breadcrumbs>
-        </Box>
+        </>
     );
 }
 
