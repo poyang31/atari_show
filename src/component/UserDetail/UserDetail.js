@@ -18,6 +18,21 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {ResetUser} from "../../action";
 import UserDetailModal from "./UserDetailModal";
+import client from "../../client/http";
+
+const updateUser = (
+    lastName,
+    firstName,
+    nickname,
+    lineId,
+    phone
+) => client("/profile", {method: "PUT"}, {
+    lastName,
+    firstName,
+    nickname,
+    lineId,
+    phone
+});
 
 function UserDetail() {
     const history = useHistory();
@@ -58,15 +73,24 @@ function UserDetail() {
     const handleSubmit = e => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        console.log({
-            UserFirstName: data.get("UserFirstName"),
-            UserLastName: data.get("UserLastName"),
-            UserName: data.get("Username"),
-            UserLine: data.get("UserLine"),
-            UserPhone: data.get("UserPhone"),
-            Password: data.get("Password"),
-        });
         //送出後端
+        updateUser(
+            data.get("lastName"),
+            data.get("firstName"),
+            data.get("nickname"),
+            data.get("lineId"),
+            data.get("phone")
+        )
+            .then(() => {
+                // Store AuthToken
+                localStorage.removeItem("atari_token");
+                // SetUser
+                dispatch(ResetUser);
+                history.push("./");
+            })
+            .catch((e) => {
+                console.error(e);
+            });
     };
 
     return (
