@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 import SelectBar from "../SelectBar/SelectBar";
 import BreadCrumbs from "../BreadCrumb/BreadCrumb";
 
 import {
     Box,
+    IconButton,
     ImageList,
     ImageListItem,
     ImageListItemBar,
-    Pagination
+    Pagination,
+    Popover
 } from "@mui/material";
 
 function IndexPage(props) {
@@ -38,17 +41,53 @@ function IndexPage(props) {
         Loop();
     }, []);
 
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? "simple-popover" : undefined;
+
     const handlePageClick = (e) => {
         setPage(e.target.firstChild.textContent);
     }
 
     return (
-        <Box sx={{display: "flex", flexDirection: "column", minHeight: 800}}>
-            <Box hidden>
-                <SelectBar cityData={cityData}/>
-            </Box>
-            <Box sx={{px: 10, py: 3}}>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: 800
+        }}>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                px: 10,
+                pt: 3
+            }}>
                 <BreadCrumbs/>
+                <IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
+                    <SearchIcon />
+                </IconButton>
+                <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                    }}
+                >
+                    <SelectBar cityData={cityData}/>
+                </Popover>
+            </Box>
+            <Box sx={{px: 10, pb: 3}}>
                 <ImageList cols={4} rowHeight={250}
                     sx={{
                         width: "auto",
