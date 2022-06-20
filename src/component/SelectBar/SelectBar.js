@@ -33,7 +33,7 @@ function SelectBar(props) {
 
     return (
         <Card sx={{
-            maxWidth: "300px"
+            maxWidth: "600px"
         }}>
             <CardContent>
                 <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")}>

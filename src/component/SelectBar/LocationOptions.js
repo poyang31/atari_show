@@ -50,6 +50,14 @@ function LocationOptions(props) {
         // }
     }, [county]);
 
+    const rowProps = () => {
+        return {
+            sx: {
+                mb: 1
+            }
+        }
+    };
+
     const handleChangeArea = (event) => {
         const checked = event.target.checked;
         const name = event.target.name;
@@ -74,10 +82,12 @@ function LocationOptions(props) {
         dispatch(SetSearch("setTownship", Array.from(areaList)));
         // dispatch(SetSearch('setAreaList', {...SearchData.areaList, [county]: Array.from(areaList)}));
     };
+
     function isChecked(area) {
         return new Set(SearchData.address.township).has(area);
         // return new Set(SearchData.areaList[county]).has(area);
     }
+
     function hasChecked(county) {
         return (SearchData.address.city === county);
         // return (county in SearchData.areaList && SearchData.areaList[county].length > 0);
@@ -86,7 +96,7 @@ function LocationOptions(props) {
 
     return (
         <>  {/* 戰南北 */}
-            <FormControl>
+            <FormControl {...rowProps()}>
                 <FormLabel id="demo-controlled-radio-buttons-group">地區</FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
@@ -104,8 +114,7 @@ function LocationOptions(props) {
                 </RadioGroup>
             </FormControl>
             {position && <> {/* 選擇縣市 */}
-                <hr />
-                <FormControl>
+                <FormControl {...rowProps()}>
                     <FormLabel id="county-group">縣市</FormLabel>
                     <RadioGroup
                         name="county-group"
@@ -134,8 +143,7 @@ function LocationOptions(props) {
                     </RadioGroup>
                 </FormControl>
             </>}
-            <hr />
-            <FormControl>
+            <FormControl {...rowProps()}>
                 <FormLabel id="county-group">鄉鎮市區</FormLabel>
                 {county && <> {/* 選擇鄉鎮市區 */}
                     <FormGroup

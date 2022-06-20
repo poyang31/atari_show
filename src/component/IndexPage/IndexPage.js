@@ -43,16 +43,16 @@ function IndexPage(props) {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = (event) => {
+    const handleClickPopover = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClosePopover = () => {
         setAnchorEl(null);
     };
 
-    const open = Boolean(anchorEl);
-    const id = open ? "simple-popover" : undefined;
+    const openPopover = Boolean(anchorEl);
+    const popoverId = open ? "simple-popover" : undefined;
 
     const handlePageClick = (e) => {
         setPage(e.target.firstChild.textContent);
@@ -71,14 +71,18 @@ function IndexPage(props) {
                 pt: 3
             }}>
                 <BreadCrumbs/>
-                <IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
+                <IconButton
+                    aria-describedby={popoverId}
+                    variant="contained"
+                    onClick={handleClickPopover}
+                >
                     <SearchIcon />
                 </IconButton>
                 <Popover
-                    id={id}
-                    open={open}
+                    id={popoverId}
+                    open={openPopover}
                     anchorEl={anchorEl}
-                    onClose={handleClose}
+                    onClose={handleClosePopover}
                     anchorOrigin={{
                         vertical: "bottom",
                         horizontal: "left",
