@@ -15,9 +15,9 @@ const generalConfig = {
 export default (input, init, json = null) => {
     input = apiServer + input;
     init = {...generalConfig, ...init};
-    const atari_token = localStorage.getItem("atari_token");
-    if (atari_token) {
-        init.headers["authorization"] = `ATARI ${atari_token}`;
+    const atariToken = localStorage.getItem("atari_token");
+    if (atariToken) {
+        init.headers["authorization"] = `ATARI ${atariToken}`;
     }
     if (json) {
         init.headers["content-type"] = "application/json";

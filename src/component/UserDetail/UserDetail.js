@@ -1,5 +1,4 @@
-import * as React from "react";
-import {useState} from "react";
+import React, {useState} from "react";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -17,23 +16,26 @@ import Typography from "@mui/material/Typography";
 
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {SetMember} from "../../actions";
-import MemberDetailModal from "./MemberDetailModal";
+import {ResetUser} from "../../action";
+import UserDetailModal from "./UserDetailModal";
 
-function MemberDetail() {
+function UserDetail() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const MemberData = useSelector(state => state.Member);
+    const userData = useSelector((state) => state.User);
 
     const [imgSrc, setImgSrc] = useState("");
     const [ModalStatus, setModalStatus] = useState(false);
 
-    const handleLogout = () => { //處理登出
-        dispatch(SetMember(""));
+    // 處理登出
+    const handleLogout = () => {
+        localStorage.removeItem("atari_token");
+        dispatch(ResetUser());
         history.push("./");
     };
 
-    const handleFile = e => { //更改使用者頭像
+    // 更改使用者頭像
+    const handleFile = e => {
         const imgFile = [...e.target.files];
         if (imgFile.length < 1) return;
         const newImageObjects = imgFile.map(
@@ -48,23 +50,19 @@ function MemberDetail() {
         document.getElementById("fileButton").click();
     };
 
-    const handleSubmit = e => { //處理確認修改事項
+    //處理確認修改事項
+    const handleSubmit = e => {
         e.preventDefault();
-        isPasswordTrue(); //驗證密碼
-        const Data = new FormData(e.currentTarget);
+        const data = new FormData(e.currentTarget);
         console.log({
-            MemberFirstName: Data.get("MemberFirstName"),
-            MemberLastName: Data.get("MemberLastName"),
-            UserName: Data.get("Username"),
-            MemberLine: Data.get("MemberLine"),
-            MemberPhone: Data.get("MemberPhone"),
-            Password: Data.get("Password"),
+            UserFirstName: data.get("UserFirstName"),
+            UserLastName: data.get("UserLastName"),
+            UserName: data.get("Username"),
+            UserLine: data.get("UserLine"),
+            UserPhone: data.get("UserPhone"),
+            Password: data.get("Password"),
         });
         //送出後端
-    };
-
-    const isPasswordTrue = () => {
-        console.log("確認密碼是否正確");
     };
 
     return (
@@ -86,43 +84,56 @@ function MemberDetail() {
                                 variant="h5" color="initial"
                                 sx={{textAlign: "center", mb: 2}}
                             >
-                                修改會員資訊
+                                修改使用者資訊
                             </Typography>
                             <Divider sx={{m: 1}}/>
                             <FormGroup>
                                 <Stack direction={"column"} spacing={2}>
+                                    <TextField
+                                        id="username"
+                                        name="username"
+                                        label="使用者代號"
+                                        defaultValue={userData.username}
+                                        disabled
+                                    />
                                     <Stack direction={"row"} spacing={2}>
                                         <TextField
-                                            id="MemberFirstName"
-                                            name="MemberFirstName"
-                                            label="會員名"
+                                            id="lastName"
+                                            name="lastName"
+                                            defaultValue={userData.lastName}
+                                            label="真實姓氏"
                                         />
                                         <TextField
-                                            id="MemberLastName"
-                                            name="MemberLastName"
-                                            label="會員姓"
+                                            id="firstName"
+                                            name="firstName"
+                                            defaultValue={userData.firstName}
+                                            label="真實名字"
                                         />
                                     </Stack>
                                     <Stack direction={"row"} spacing={2}>
                                         <TextField
-                                            name="Username"
-                                            id="UserName"
+                                            id="nickname"
+                                            name="nickname"
+                                            defaultValue={userData.nickname}
                                             label="暱稱"
                                         />
                                         <TextField
-                                            id="MemberLine"
-                                            name="MemberLine"
-                                            label="Line ID"
+                                            id="lineId"
+                                            name="lineId"
+                                            defaultValue={userData.lineId}
+                                            label="LINE ID"
                                         />
                                     </Stack>
                                     <TextField
-                                        id="MemberPhone"
-                                        name="MemberPhone"
+                                        id="phone"
+                                        name="phone"
+                                        defaultValue={userData.phone}
                                         label="電話號碼"
                                     />
                                     <TextField
-                                        id="Password"
-                                        name="Password"
+                                        id="password"
+                                        name="password"
+                                        defaultValue={userData.password}
                                         label="密碼"
                                     />
                                 </Stack>
@@ -137,14 +148,14 @@ function MemberDetail() {
                         <Box>
                             <IconButton onClick={triggerFile}> {/* 點擊時觸發上面的input File */}
                                 <Avatar
-                                    alt={MemberData.username}
+                                    alt={userData.username}
                                     src={imgSrc ? imgSrc[0] : ""}
                                     sx={{width: "20vh", height: "20vh"}}
                                 />
                             </IconButton>
                             <Box sx={{textAlign: "center"}}>
                                 <Typography variant="p" color="#333">
-                                    點擊頭像更改頭像
+                                    點擊上方更改頭像
                                 </Typography>
                             </Box>
                         </Box>
@@ -177,7 +188,7 @@ function MemberDetail() {
                 aria-describedby="modal-modal-description"
             >
                 <div>
-                    <MemberDetailModal setModalStatus={setModalStatus}/>
+                    <UserDetailModal setModalStatus={setModalStatus}/>
                 </div>
             </Modal>
 
@@ -187,4 +198,4 @@ function MemberDetail() {
     );
 }
 
-export default MemberDetail;
+export default UserDetail;

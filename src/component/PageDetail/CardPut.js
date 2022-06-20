@@ -4,7 +4,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import Line from "./icons8-line.svg";
 import {QRCodeSVG} from "qrcode.react";
 
-export default function Cardput(props) {
+export default function CardPut(props) {
     const {landlordStatus, landlordNickName, phoneNumber, lineAddress} = props.landlord;
     const displayPhoneNumber = `${phoneNumber.substring(0, 4)}-${phoneNumber.substring(4, 7)}-${phoneNumber.substring(7)}`;
     let landlordType;

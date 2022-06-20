@@ -17,7 +17,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import client from "../../client/http";
-import {SetMember} from "../../actions";
+import {SetUser} from "../../action";
 
 const theme = createTheme();
 
@@ -26,6 +26,7 @@ const register = (
     password,
     lastName,
     firstName,
+    nickname,
     lineId,
     phone
 ) => client("/register", {method: "POST"}, {
@@ -33,6 +34,7 @@ const register = (
     password,
     lastName,
     firstName,
+    nickname,
     lineId,
     phone
 });
@@ -46,7 +48,6 @@ export default function SignUp() {
         event.preventDefault();
         setStatus("");
         const data = new FormData(event.currentTarget);
-        console.log(data)
         if (data.get("password") !== data.get("passwordConfirm")) {
             setStatus("密碼互不相符");
             return;
@@ -60,15 +61,15 @@ export default function SignUp() {
             data.get("password"),
             data.get("lastName"),
             data.get("firstName"),
+            data.get("nickname"),
             data.get("lineId"),
             data.get("phone")
         )
             .then((res) => {
-                console.log(res);
                 // Store AuthToken
                 localStorage.setItem("atari_token", res.authToken);
-                // SetStoreMember
-                dispatch(SetMember(data.get("username")));
+                // SetUser
+                dispatch(SetUser(res.user));
                 history.push("./");
             })
             .catch((e) => {
@@ -118,81 +119,81 @@ export default function SignUp() {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
-                                    required
-                                    fullWidth
                                     id="username"
-                                    label="使用者代號"
                                     name="username"
+                                    label="使用者代號"
                                     autoComplete="username"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
-                                    fullWidth
                                     id="firstName"
+                                    name="firstName"
                                     label="名"
+                                    autoComplete="given-name"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
-                                    fullWidth
                                     id="lastName"
-                                    label="姓"
                                     name="lastName"
+                                    label="姓"
                                     autoComplete="family-name"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
-                                    fullWidth
-                                    id="nickName"
+                                    id="nickname"
+                                    name="nickname"
                                     label="暱稱"
-                                    name="nickName"
-                                    autoComplete="nickName"
+                                    autoComplete="nickname"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
-                                    fullWidth
                                     id="lineId"
-                                    label="LINE ID"
                                     name="lineId"
+                                    label="LINE ID"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    required
-                                    fullWidth
                                     id="phone"
-                                    label="電話號碼"
                                     name="phone"
+                                    label="電話號碼"
                                     autoComplete="phone"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    required
-                                    fullWidth
+                                    id="password"
                                     name="password"
                                     label="密碼"
                                     type="password"
-                                    id="password"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    required
-                                    fullWidth
+                                    id="passwordConfirm"
                                     name="passwordConfirm"
                                     label="再次確認密碼"
                                     type="password"
-                                    id="passwordConfirm"
+                                    fullWidth
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12}>

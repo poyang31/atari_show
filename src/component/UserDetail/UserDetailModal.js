@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider"
 import Stack from "@mui/material/Stack"
 
 
-function MemberDetailModal(props) {
+function UserDetailModal(props) {
     const handleSubmit = e => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
@@ -50,7 +50,7 @@ function MemberDetailModal(props) {
                     variant="h5"
                     component="h2"
                 >
-                    更改會員密碼
+                    更改使用者密碼
                 </Typography>
                 <Divider sx={{m: 1}}/>
                 <FormControl
@@ -96,4 +96,4 @@ function MemberDetailModal(props) {
     );
 }
 
-export default MemberDetailModal;
+export default UserDetailModal;

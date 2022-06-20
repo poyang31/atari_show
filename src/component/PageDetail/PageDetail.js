@@ -3,14 +3,14 @@ import * as React from "react";
 import {Box, Link, Typography} from "@mui/material";
 import BreadCrumbs from "../BreadCrumb/BreadCrumb";
 import "./PageDetail.css";
-import "../../images/male-gender.png";
-import "../../images/female.png";
-import Carousels from "./image";
+import "../../image/male-gender.png";
+import "../../image/female.png";
+import Carousels from "./Image";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Cardput from "./Cardput";
+import CardPut from "./CardPut";
 import Outline from "./Outline";
 import CardDetail from "./CardDetail";
-import HouseDetail from "./houseDetail";
+import HouseDetail from "./HouseDetail";
 
 import EquipmentAndServices from "./EquipmentAndServices";
 
@@ -49,8 +49,8 @@ const conditions = {
 const landlordStatus = 0; //0為房東, 1為代理人, 2為仲介
 const landlordNickName = "季先生"; //發文者稱呼
 const phoneNumber = "0900111222"; //發文者設定的電話號碼
-const Line = "qwe910108";
-const lineAddress = `http://line.me/ti/p/~${Line}`; //發文者設定的LINE連結
+const LINE = "qwe910108";
+const lineAddress = `http://line.me/ti/p/~${LINE}`; //發文者設定的LINE連結
 const say = `body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
     blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
     neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
@@ -209,7 +209,7 @@ function PageDetail() {
                         position: "sticky",
                         top: 100,
                     }}>
-                        <Cardput landlord={landlordValue}/>
+                        <CardPut landlord={landlordValue}/>
                         <Typography variant="h5" sx={{fontWeight: "bold", pb: 1}}>位置與週邊:</Typography>
                         <Box sx={{p: 1}}>
                             <Link color="inherit" href={searchMap} target="_blank">地址:{addressValue}</Link>

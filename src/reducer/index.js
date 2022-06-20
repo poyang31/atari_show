@@ -1,9 +1,9 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import MemberReducer from "./Member";
+import UserReducer from "./User";
 import SearchReducer from "./Search";
 
 const allReducers = combineReducers({
-    Member: MemberReducer,
+    User: UserReducer,
     Search: SearchReducer,
 });
 

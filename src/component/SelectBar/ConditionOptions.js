@@ -5,7 +5,7 @@ import { FormControlLabel, FormControl, FormGroup } from "@mui/material";
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SetSearch } from "../../actions";
+import { SetSearch } from "../../action";
 
 function ConditionOptions() {
     const searchData = useSelector(state => state.Search);

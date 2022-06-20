@@ -11,14 +11,12 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import SendIcon from "@mui/icons-material/Send";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 import client from "../../client/http";
-import {SetMember} from "../../actions";
+import {SetUser} from "../../action";
 
 const theme = createTheme();
 
@@ -44,16 +42,17 @@ export default function SignIn() {
             data.get("password")
         )
             .then((res) => {
-                console.log(res);
                 // Store AuthToken
                 localStorage.setItem("atari_token", res.authToken);
-                // SetStoreMember
-                dispatch(SetMember(data.get("username")));
+                // SetUser
+                dispatch(SetUser(res.user));
                 history.push("./");
             })
             .catch((e) => {
                 console.error(e);
-                if (e.status === 404) {
+                if (e.status === 401) {
+                    setStatus("登入資訊有誤，請嘗試重新輸入")
+                } else if (e.status === 404) {
                     setStatus("使用者尚未註冊")
                 } else {
                     setStatus("未知錯誤")
@@ -95,26 +94,22 @@ export default function SignIn() {
                     >
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
                             id="username"
                             label="使用者代號"
                             name="username"
                             autoComplete="username"
+                            required
                         />
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
                             name="password"
                             label="密碼"
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
-                            label="記得我"
+                            required
                         />
                         <Button
                             type="submit"

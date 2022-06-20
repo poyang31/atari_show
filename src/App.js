@@ -1,23 +1,47 @@
 import * as React from "react";
+import {useDispatch} from "react-redux";
 
 import Box from "@mui/material/Box";
 
 import {HashRouter, Route, Switch} from "react-router-dom"
-import IndexPage from "./components/IndexPage/IndexPage";
-import RentPage from "./components/RentPage/RentPage";
-import PageDetail from "./components/PageDetail/PageDetail";
-import NavBar from "./components/Navbar/Navbar";
-import SignUp from "./components/SignUp/SignUp";
-import SignIn from "./components/SignIn/SignIn";
-import Footer from "./components/Footer/Footer";
-import AddRentPage from "./components/AddRentPage/AddRentPage";
-
+import IndexPage from "./component/IndexPage/IndexPage";
+import RentPage from "./component/RentPage/RentPage";
+import PageDetail from "./component/PageDetail/PageDetail";
+import NavBar from "./component/Navbar/Navbar";
+import SignUp from "./component/SignUp/SignUp";
+import SignIn from "./component/SignIn/SignIn";
+import Footer from "./component/Footer/Footer";
+import UserDetail from "./component/UserDetail/UserDetail";
+import AddRentPage from "./component/AddRentPage/AddRentPage";
+import client from "./client/http";
 import cityCountyData from "./data/CityCountyData.json";
-import MemberDetail from "./components/MemberDetail/MemberDetail";
+import {SetUser} from "./action";
 
-const cityData = Object.fromEntries(cityCountyData.map((city) => [city.CityName, city.AreaList]))
+const getProfile = () => client("/profile");
+
+const cityData = Object.fromEntries(
+    cityCountyData.map(
+        (city) => [city.CityName, city.AreaList]
+    )
+);
 
 function App() {
+    const dispatch = useDispatch();
+
+    // Store AuthToken
+    const atariToken = localStorage.getItem("atari_token");
+    if (atariToken) {
+        getProfile()
+            .then((res) => {
+                // SetUser
+                dispatch(SetUser(res));
+            })
+            .catch((e) => {
+                console.error(e);
+                localStorage.removeItem("atari_token");
+            });
+    }
+
     return (
         <HashRouter>
             <Box
@@ -45,7 +69,7 @@ function App() {
                         <Route exact path="/add-rent-page">
                             <AddRentPage cityData={cityData}/>
                         </Route>
-                        <Route exact path="/member-detail" component={MemberDetail}/>
+                        <Route exact path="/user-detail" component={UserDetail}/>
                         <Route exact path="/page-detail/:id" component={PageDetail}/>
                         <Route exact path="/sign-up" component={SignUp}/>
                         <Route exact path="/sign-in" component={SignIn}/>

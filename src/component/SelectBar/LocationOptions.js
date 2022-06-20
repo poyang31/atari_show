@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { FormGroup } from "@mui/material";
 
-import { SetSearch } from "../../actions";
+import { SetSearch } from "../../action";
 
 const areas = {
     "北部": ["臺北市", "新北市", "桃園市", "新竹市", "基隆市", "新竹縣", "宜蘭縣"],

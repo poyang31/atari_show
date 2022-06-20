@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 export default function NavBar() {
-    const MemberData = useSelector(state => state.Member);
+    const userData = useSelector((state) => state.User);
     return (
         <Box sx={{flexGrow: 1, mb: "32px"}}>
             <AppBar position="fixed">
@@ -35,11 +35,11 @@ export default function NavBar() {
                     <Button color="inherit" component={Link} to="/rent-page">租房資料</Button>
                     <Button color="inherit" component={Link} to="/add-rent-page">刊登房屋</Button>
                     {
-                        MemberData.username === "" ? (
+                        !userData.username ? (
                             <Button color="inherit" component={Link} to="/sign-in">登入</Button>
                         ) : (
-                            <IconButton component={Link} to="/member-detail">
-                                <Avatar alt={MemberData.username} src="../img/female.png"/>
+                            <IconButton component={Link} to="/user-detail">
+                                <Avatar alt={userData.username} src="../img/female.png"/>
                             </IconButton>
                         )
                     }

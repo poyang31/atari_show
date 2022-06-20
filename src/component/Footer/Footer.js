@@ -15,7 +15,7 @@ export default function Footer() {
                         <Box component={Link} to="/" className="link" style={{textDecoration: "none"}}>聯繫</Box><br/>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <Box borderBottom={1}>會員中心</Box>
+                        <Box borderBottom={1}>使用者中心</Box>
                         <Box component={Link} to="/" className="link" style={{textDecoration: "none"}}>登入</Box><br/>
                         <Box component={Link} to="/" className="link" style={{textDecoration: "none"}}>註冊</Box><br/>
                         <Box component={Link} to="/" className="link" style={{textDecoration: "none"}}>聯繫</Box><br/>
