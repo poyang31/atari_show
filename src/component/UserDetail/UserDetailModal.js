@@ -1,26 +1,30 @@
-import * as React from "react";
+import React, {useState} from "react";
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import FormControl from "@mui/material/FormControl"
-import FormGroup from "@mui/material/FormGroup"
-import TextField from "@mui/material/TextField"
-import Button from "@mui/material/Button"
-import Divider from "@mui/material/Divider"
-import Stack from "@mui/material/Stack"
-
+import {
+    Box,
+    Typography,
+    FormControl,
+    FormGroup,
+    TextField,
+    Button,
+    Divider,
+    Stack
+} from "@mui/material";
 
 function UserDetailModal(props) {
+    const [status, setStatus] = useState("");
+
     const handleSubmit = e => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const oldPassword = data.get("old-password");
-        const newPassword = data.get("new-password");
+        if (data.get("password") !== data.get("passwordConfirm")) {
+            setStatus("密碼互不相符");
+            return;
+        }
         console.log({
-            oldPassword: oldPassword,
-            newPassword: newPassword,
+            newPassword: data.get("password"),
         });
-        // 確認舊密碼是否正確
+        // 確認密碼是否正確
         // 修改密碼
         props.setModalStatus(false);
     }
@@ -32,7 +36,7 @@ function UserDetailModal(props) {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 400,
-            bgColor: "background.paper",
+            backgroundColor: "#fff",
             border: "1px solid #000",
             boxShadow: 5,
             borderRadius: 2
@@ -53,6 +57,14 @@ function UserDetailModal(props) {
                     更改使用者密碼
                 </Typography>
                 <Divider sx={{m: 1}}/>
+                <Typography
+                    component="p"
+                    variant="p"
+                    color="#e00"
+                    sx={{my: 1}}
+                >
+                    {status}
+                </Typography>
                 <FormControl
                     component="form"
                     onSubmit={handleSubmit}
@@ -60,18 +72,18 @@ function UserDetailModal(props) {
                 >
                     <FormGroup sx={{width: "100%"}}>
                         <TextField
-                            id="old-password"
-                            name="old-password"
-                            label="請輸入舊密碼"
-                            type="password"
-                            sx={{mb: 2, mt: 2}}
-                        />
-                        <TextField
-                            id="new-password"
-                            name="new-password"
+                            id="password"
+                            name="password"
                             label="請輸入新密碼"
                             type="password"
-                            sx={{mb: 2}}
+                            sx={{my: 2}}
+                        />
+                        <TextField
+                            id="passwordConfirm"
+                            name="passwordConfirm"
+                            label="再次確認密碼"
+                            type="password"
+                            sx={{my: 2}}
                         />
                     </FormGroup>
                     <Stack direction={"row"} spacing={3}>

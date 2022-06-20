@@ -130,12 +130,6 @@ function UserDetail() {
                                         defaultValue={userData.phone}
                                         label="電話號碼"
                                     />
-                                    <TextField
-                                        id="password"
-                                        name="password"
-                                        defaultValue={userData.password}
-                                        label="密碼"
-                                    />
                                 </Stack>
                             </FormGroup>
                             <Button style={{marginTop: "10px"}} variant="contained" color="primary" type="submit">
