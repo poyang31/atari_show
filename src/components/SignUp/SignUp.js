@@ -21,7 +21,21 @@ import {SetMember} from "../../actions";
 
 const theme = createTheme();
 
-const register = (username, password) => client("/register", {method: "POST"}, {username, password});
+const register = (
+    username,
+    password,
+    lastName,
+    firstName,
+    lineId,
+    phone
+) => client("/register", {method: "POST"}, {
+    username,
+    password,
+    lastName,
+    firstName,
+    lineId,
+    phone
+});
 
 export default function SignUp() {
     const dispatch = useDispatch();
@@ -32,7 +46,23 @@ export default function SignUp() {
         event.preventDefault();
         setStatus("");
         const data = new FormData(event.currentTarget);
-        register(data.get("username"), data.get("password"))
+        console.log(data)
+        if (data.get("password") !== data.get("passwordConfirm")) {
+            setStatus("密碼互不相符");
+            return;
+        }
+        if (data.get("isAllowPrivacy") !== "yes") {
+            setStatus("未同意隱私權政策");
+            return;
+        }
+        register(
+            data.get("username"),
+            data.get("password"),
+            data.get("lastName"),
+            data.get("firstName"),
+            data.get("lineId"),
+            data.get("phone")
+        )
             .then((res) => {
                 console.log(res);
                 // Store AuthToken
@@ -44,11 +74,11 @@ export default function SignUp() {
             .catch((e) => {
                 console.error(e);
                 if (e.status === 409) {
-                    setStatus("使用者代號已被使用")
+                    setStatus("使用者代號已被使用");
                 } else if (e.status === 400) {
-                    setStatus("請填寫必填欄位")
+                    setStatus("請填寫必填欄位");
                 } else {
-                    setStatus("未知錯誤")
+                    setStatus("未知錯誤");
                 }
             });
     };
@@ -120,30 +150,29 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="NickName"
+                                    id="nickName"
                                     label="暱稱"
-                                    name="NickName"
-                                    autoComplete="NickName"
+                                    name="nickName"
+                                    autoComplete="nickName"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="Line"
-                                    label="Line ID"
-                                    name="Line"
-                                    autoComplete="Line"
+                                    id="lineId"
+                                    label="LINE ID"
+                                    name="lineId"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    id="Phone"
+                                    id="phone"
                                     label="電話號碼"
-                                    name="Phone"
-                                    autoComplete="Phone"
+                                    name="phone"
+                                    autoComplete="phone"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -154,15 +183,28 @@ export default function SignUp() {
                                     label="密碼"
                                     type="password"
                                     id="password"
-                                    autoComplete="new-password"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="passwordConfirm"
+                                    label="再次確認密碼"
+                                    type="password"
+                                    id="passwordConfirm"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
-                                        <Checkbox value="allowExtraEmails" color="primary"/>
+                                        <Checkbox
+                                            name="isAllowPrivacy"
+                                            color="primary"
+                                            value="yes"
+                                        />
                                     }
-                                    label="我同意 隱私權政策"
+                                    label="我同意隱私權政策"
                                 />
                             </Grid>
                         </Grid>

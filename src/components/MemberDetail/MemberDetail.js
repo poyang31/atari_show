@@ -25,29 +25,32 @@ function MemberDetail() {
     const dispatch = useDispatch();
     const MemberData = useSelector(state => state.Member);
 
-    const [imgSrc, setimgSrc] = useState("");
+    const [imgSrc, setImgSrc] = useState("");
     const [ModalStatus, setModalStatus] = useState(false);
 
     const handleLogout = () => { //處理登出
         dispatch(SetMember(""));
         history.push("./");
-    }
+    };
 
     const handleFile = e => { //更改使用者頭像
-        const Imgfile = [...e.target.files];
-        if (Imgfile.length < 1) return;
-        const newImageUrls = [];
-        Imgfile.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-        setimgSrc(newImageUrls);
-    }
+        const imgFile = [...e.target.files];
+        if (imgFile.length < 1) return;
+        const newImageObjects = imgFile.map(
+            (image) => URL.createObjectURL(image)
+        );
+        if (newImageObjects.length) {
+            setImgSrc(newImageObjects[0]);
+        }
+    };
 
-    const TriggerFile = () => {
+    const triggerFile = () => {
         document.getElementById("fileButton").click();
-    }
+    };
 
     const handleSubmit = e => { //處理確認修改事項
         e.preventDefault();
-        isPassWordTrue(); //驗證密碼
+        isPasswordTrue(); //驗證密碼
         const Data = new FormData(e.currentTarget);
         console.log({
             MemberFirstName: Data.get("MemberFirstName"),
@@ -58,11 +61,11 @@ function MemberDetail() {
             Password: Data.get("Password"),
         });
         //送出後端
-    }
+    };
 
-    const isPassWordTrue = () => {
+    const isPasswordTrue = () => {
         console.log("確認密碼是否正確");
-    }
+    };
 
     return (
         <Box sx={{display: "flex", justifyContent: "center", position: "sticky", top: 150}}>
@@ -76,7 +79,7 @@ function MemberDetail() {
                 boxShadow: 5
             }}>
                 <Stack sx={{display: "flex", justifyContent: "center"}} direction={"row"}
-                    spacing={0.1}> {/* 切成左右邊 左邊顯示可更改內容 右邊顯示頭像 */}
+                    spacing={0.1}> {/* 切邊 左邊顯示可更改內容 右邊顯示頭像 */}
                     <Box sx={{width: "35rem"}}> {/* 左邊區塊 顯示可更改內容 */}
                         <FormControl component="form" onSubmit={handleSubmit}>
                             <Typography
@@ -132,7 +135,7 @@ function MemberDetail() {
                     <Stack>{/* 右邊區塊 顯示頭像 */}
                         <input id="fileButton" type="file" hidden onChange={handleFile}/>
                         <Box>
-                            <IconButton onClick={TriggerFile}> {/* 點擊時觸發上面的input File */}
+                            <IconButton onClick={triggerFile}> {/* 點擊時觸發上面的input File */}
                                 <Avatar
                                     alt={MemberData.username}
                                     src={imgSrc ? imgSrc[0] : ""}

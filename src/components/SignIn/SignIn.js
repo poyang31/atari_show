@@ -22,7 +22,13 @@ import {SetMember} from "../../actions";
 
 const theme = createTheme();
 
-const login = (username, password) => client("/login", {method: "POST"}, {username, password});
+const login = (
+    username,
+    password
+) => client("/login", {method: "POST"}, {
+    username,
+    password
+});
 
 export default function SignIn() {
     const dispatch = useDispatch();
@@ -33,7 +39,10 @@ export default function SignIn() {
         event.preventDefault();
         setStatus("");
         const data = new FormData(event.currentTarget);
-        login(data.get("username"), data.get("password"))
+        login(
+            data.get("username"),
+            data.get("password")
+        )
             .then((res) => {
                 console.log(res);
                 // Store AuthToken
