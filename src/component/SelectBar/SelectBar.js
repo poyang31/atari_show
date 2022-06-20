@@ -11,8 +11,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import LocationOptions from "./LocationOptions.js";
-import ConditionOptions from "./ConditionOptions.js";
+import LocationOptions from "./LocationOptions";
+import ConditionOptions from "./ConditionOptions";
 
 function SelectBar(props) {
     const SearchData = useSelector(state => state.Search);

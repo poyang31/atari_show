@@ -20,7 +20,7 @@ function BreadCrumb(props) {
                 <Link underline="hover" color="inherit" to="/">
                     <HomeIcon/>
                 </Link>
-                <Typography color="text.primary">Breadcrumbs</Typography>
+                <Typography color="text.primary">房屋照片</Typography>
             </Breadcrumbs>
         </Box>
     );

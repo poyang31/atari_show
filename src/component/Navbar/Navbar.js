@@ -22,10 +22,9 @@ export default function NavBar() {
                             edge="start"
                             color="inherit"
                             aria-label="menu"
-                            sx={{mr: 2}}
                         >
                             {/* <Link><HomeIcon/></Link> */}
-                            <HomeIcon/>
+                            <HomeIcon sx={{mr: 1}} />
                             <Typography variant="h6" component="span">
                                 我愛房東網
                             </Typography>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
-import {Box, ImageList, ImageListItem, ImageListItemBar, Pagination, Typography} from "@mui/material";
+import {Box, ImageList, ImageListItem, ImageListItemBar, Pagination,} from "@mui/material";
 import {Link} from "react-router-dom";
-import SelectBar from "../SelectBar/SelectBar.js";
+import SelectBar from "../SelectBar/SelectBar";
 import BreadCrumbs from "../BreadCrumb/BreadCrumb";
 
 function IndexPage(props) {
@@ -37,15 +37,10 @@ function IndexPage(props) {
 
     return (
         <Box sx={{display: "flex", flexDirection: "column", minHeight: 800}}>
-            <Box>
+            <Box hidden>
                 <SelectBar cityData={cityData}/>
             </Box>
-            <Box>
-                <Typography variant="h3">
-                    房屋照片
-                </Typography>
-            </Box>
-            <Box sx={{background: "#dfe0ed", pt: 5, pb: 15, pl: 10, pr: 10}}>
+            <Box sx={{px: 10, py: 3}}>
                 <BreadCrumbs/>
                 <ImageList cols={4} rowHeight={250}
                     sx={{
@@ -54,13 +49,19 @@ function IndexPage(props) {
                     }}>
                     {dataList.map((data) => {
                         return (
-                            <ImageListItem key={data.id} sx={{
-                                width: 350,
-                                pb: 5,
-                                ":hover": {
-                                    boxShadow: 3
-                                },
-                            }}>
+                            <ImageListItem
+                                key={data.id}
+                                sx={{
+                                    width: 350,
+                                    p: 3,
+                                    border: 1,
+                                    borderColor: "#fff",
+                                    borderRadius: 5,
+                                    ":hover": {
+                                        borderColor: "#eee",
+                                    },
+                                }}
+                            >
                                 <Link to={`/PageDetail/${data.id}`}>
                                     <img
                                         alt={data.id}
@@ -81,14 +82,18 @@ function IndexPage(props) {
             </Box>
             <Box
                 sx={{
-                    width: 1,
-                    minHeight: 50,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "#dfe0ed",
+                    pb: 9
                 }}>
-                <Pagination count={11} defaultPage={1} boundaryCount={2} size="large" onClick={handlePageClick}/>
+                <Pagination
+                    count={11}
+                    defaultPage={1}
+                    boundaryCount={2}
+                    size="large"
+                    onClick={handlePageClick}
+                />
             </Box>
         </Box>
     );
