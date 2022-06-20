@@ -13,6 +13,7 @@ import SignIn from "./component/SignIn/SignIn";
 import Footer from "./component/Footer/Footer";
 import UserDetail from "./component/UserDetail/UserDetail";
 import AddRentPage from "./component/AddRentPage/AddRentPage";
+import NotFoundPage from "./component/NotFoundPage/NotFoundPage";
 import client from "./client/http";
 import cityCountyData from "./data/CityCountyData.json";
 import {SetUser} from "./action";
@@ -73,7 +74,7 @@ function App() {
                         <Route exact path="/page-detail/:id" component={PageDetail}/>
                         <Route exact path="/sign-up" component={SignUp}/>
                         <Route exact path="/sign-in" component={SignIn}/>
-                        <Route path="*">Not Found. ERROR: 404</Route>
+                        <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </Box>
 

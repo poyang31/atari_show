@@ -1,6 +1,14 @@
 import React from "react"
-import {Grid, Typography} from "@mui/material";
-import {AiOutlineCheck, AiOutlineDollarCircle} from "react-icons/ai";
+
+import {
+    AiOutlineCheck,
+    AiOutlineDollarCircle
+} from "react-icons/ai";
+
+import {
+    Grid,
+    Typography
+} from "@mui/material";
 
 export default function HouseDetail(props) {
     const {islegal, area, registration, manageMoney, direction, rentMoney} = props.HouseDetailval

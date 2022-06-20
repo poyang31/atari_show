@@ -1,6 +1,12 @@
 import React from "react"
 import Condition from "./Condition";
-import {Box, Grid, Stack, Typography} from "@mui/material";
+
+import {
+    Box,
+    Grid,
+    Stack,
+    Typography
+} from "@mui/material";
 
 export default function EquipmentAndServices(props) {
     const {conditions, icons} = props.equipmentAndServicesValue;

@@ -1,5 +1,11 @@
 import * as React from "react";
-import {Box, Grid, Paper, Typography} from "@mui/material";
+
+import {
+    Box,
+    Grid,
+    Paper,
+    Typography
+} from "@mui/material";
 
 export default function Condition(props) {
     const {icon} = props;

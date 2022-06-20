@@ -1,8 +1,15 @@
 import React, {useEffect, useState} from "react"
-import {Box, ImageList, ImageListItem, ImageListItemBar, Pagination,} from "@mui/material";
 import {Link} from "react-router-dom";
 import SelectBar from "../SelectBar/SelectBar";
 import BreadCrumbs from "../BreadCrumb/BreadCrumb";
+
+import {
+    Box,
+    ImageList,
+    ImageListItem,
+    ImageListItemBar,
+    Pagination
+} from "@mui/material";
 
 function IndexPage(props) {
     const {cityData} = props;
@@ -62,7 +69,7 @@ function IndexPage(props) {
                                     },
                                 }}
                             >
-                                <Link to={`/PageDetail/${data.id}`}>
+                                <Link to={`/page-detail/${data.id}`}>
                                     <img
                                         alt={data.id}
                                         style={{width: 350, height: 200}}
@@ -101,4 +108,3 @@ function IndexPage(props) {
 
 export default IndexPage;
 // https://images.unsplash.com/photo-1551963831-b3b1ca40c98e
-

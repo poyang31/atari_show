@@ -1,7 +1,12 @@
 import * as React from "react";
 import {Link} from "react-router-dom"
 import "./Footer.css";
-import {Box, Container, Grid} from "@mui/material";
+
+import {
+    Box,
+    Container,
+    Grid
+} from "@mui/material";
 
 export default function Footer() {
     return (

@@ -1,19 +1,23 @@
 import * as React from "react";
 
-import {Box, Link, Typography} from "@mui/material";
 import BreadCrumbs from "../BreadCrumb/BreadCrumb";
+
+import {
+    Box,
+    Link,
+    Typography
+} from "@mui/material";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./PageDetail.css";
 import "../../image/male-gender.png";
 import "../../image/female.png";
 import Carousels from "./Image";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import CardPut from "./CardPut";
 import Outline from "./Outline";
 import CardDetail from "./CardDetail";
 import HouseDetail from "./HouseDetail";
-
 import EquipmentAndServices from "./EquipmentAndServices";
-
 
 // 後端傳入資料
 const title = "近慈濟大學大/中/小方便獨立套房" //標題

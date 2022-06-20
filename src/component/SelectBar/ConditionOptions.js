@@ -1,11 +1,22 @@
 import * as React from "react";
 
-import { Box, Grid, Tabs, Tab, Typography, TextField, Slider, Checkbox } from "@mui/material";
-import { FormControlLabel, FormControl, FormGroup } from "@mui/material";
-
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SetSearch } from "../../action";
+
+import {
+    Box,
+    Grid,
+    Tabs,
+    Tab,
+    Typography,
+    Slider,
+    FormControl,
+    Checkbox,
+    TextField,
+    FormControlLabel,
+    FormGroup
+} from "@mui/material";
 
 function ConditionOptions() {
     const searchData = useSelector(state => state.Search);

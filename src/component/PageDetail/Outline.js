@@ -1,5 +1,10 @@
 import React from "react"
-import {Box, Stack, Typography} from "@mui/material";
+
+import {
+    Box,
+    Stack,
+    Typography
+} from "@mui/material";
 
 export default function Outline(props) {
     const {title, tags, roomType, size, floor, houseType, rentMoney, securityDeposit, totalFloor} = props.outlineValue;

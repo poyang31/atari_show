@@ -1,8 +1,18 @@
 import * as React from "react";
-import {Avatar, Box, Button, Card, CardContent, Grid, Tooltip, Typography} from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import Line from "./icons8-line.svg";
 import {QRCodeSVG} from "qrcode.react";
+
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Grid,
+    Tooltip,
+    Typography
+} from "@mui/material";
 
 export default function CardPut(props) {
     const {landlordStatus, landlordNickName, phoneNumber, lineAddress} = props.landlord;

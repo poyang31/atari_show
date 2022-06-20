@@ -1,8 +1,5 @@
 
-import * as React from "react";
-import { useState } from "react";
-
-import { Box, Grid, Paper, Button } from "@mui/material";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import Accordion from "@mui/material/Accordion";
@@ -10,6 +7,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import {
+    Box,
+    Grid,
+    Paper,
+    Button
+} from "@mui/material";
 
 import LocationOptions from "./LocationOptions";
 import ConditionOptions from "./ConditionOptions";
