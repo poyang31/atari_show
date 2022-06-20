@@ -39,7 +39,7 @@ const register = (
     phone
 });
 
-export default function SignUp() {
+export default function SignUpPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [status, setStatus] = useState("");

@@ -28,7 +28,7 @@ const login = (
     password
 });
 
-export default function SignIn() {
+export default function SignInPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [status, setStatus] = useState("");

@@ -8,8 +8,8 @@ import IndexPage from "./component/IndexPage/IndexPage";
 import RentPage from "./component/RentPage/RentPage";
 import PageDetail from "./component/PageDetail/PageDetail";
 import NavBar from "./component/Navbar/Navbar";
-import SignUp from "./component/SignUp/SignUp";
-import SignIn from "./component/SignIn/SignIn";
+import SignUpPage from "./component/SignUpPage/SignUpPage";
+import SignInPage from "./component/SignInPage/SignInPage";
 import Footer from "./component/Footer/Footer";
 import UserDetail from "./component/UserDetail/UserDetail";
 import AddRentPage from "./component/AddRentPage/AddRentPage";
@@ -72,8 +72,8 @@ function App() {
                         </Route>
                         <Route exact path="/user-detail" component={UserDetail}/>
                         <Route exact path="/page-detail/:id" component={PageDetail}/>
-                        <Route exact path="/sign-up" component={SignUp}/>
-                        <Route exact path="/sign-in" component={SignIn}/>
+                        <Route exact path="/sign-up" component={SignUpPage}/>
+                        <Route exact path="/sign-in" component={SignInPage}/>
                         <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </Box>
