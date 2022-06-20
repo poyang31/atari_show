@@ -1,4 +1,4 @@
-const apiServer = process.env.ATARI_API_HOST || "http://localhost:3000";
+const apiServer = process.env.REACT_APP_ATARI_API_HOST || "http://localhost:3000";
 
 const generalConfig = {
     method: "GET",
