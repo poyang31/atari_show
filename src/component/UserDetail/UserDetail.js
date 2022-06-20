@@ -85,7 +85,7 @@ function UserDetail() {
                 // Store AuthToken
                 localStorage.removeItem("atari_token");
                 // SetUser
-                dispatch(ResetUser);
+                dispatch(ResetUser());
                 history.push("./");
             })
             .catch((e) => {

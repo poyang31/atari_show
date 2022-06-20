@@ -22,6 +22,10 @@ export default (input, init, json = null) => {
     return new Promise((resolve, reject) =>
         fetch(input, init)
             .then((res) => {
+                if (res.status === 204) {
+                    resolve();
+                    return;
+                }
                 return Math.floor(res.status / 100) === 2
                     ? res.json()
                     : reject(res)
