@@ -2,14 +2,11 @@ const apiServer = process.env.REACT_APP_ATARI_API_HOST || "https://atari.fuseita
 
 const generalConfig = {
     method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
     headers: {
         accept: "application/json"
     },
-    redirect: "follow",
-    referrer: "no-referrer",
+    mode: "cors",
+    cache: "no-cache"
 };
 
 export default (input, init, json = null) => {
