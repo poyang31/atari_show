@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -7,15 +9,11 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton"
 import FormControl from "@mui/material/FormControl"
 import Divider from "@mui/material/Divider"
-
 import FormGroup from "@mui/material/FormGroup"
-
 import TextField from "@mui/material/TextField"
 import Modal from "@mui/material/Modal"
 import Typography from "@mui/material/Typography";
 
-import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {ResetUser} from "../../action";
 import UserDetailModal from "./UserDetailModal";
 import client from "../../client/http";
@@ -84,7 +82,7 @@ function UserDetail() {
             .then(() => {
                 // Store AuthToken
                 localStorage.removeItem("atari_token");
-                // SetUser
+                // ResetUser
                 dispatch(ResetUser());
                 history.push("./");
             })

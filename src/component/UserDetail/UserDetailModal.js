@@ -1,32 +1,37 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 
-import {
-    Box,
-    Typography,
-    FormControl,
-    FormGroup,
-    TextField,
-    Button,
-    Divider,
-    Stack
-} from "@mui/material";
+import {Box, Button, Divider, FormControl, FormGroup, Stack, TextField, Typography} from "@mui/material";
+import {ResetUser} from "../../action";
+import client from "../../client/http";
+
+const updatePassword = (password) => client("/profile", {method: "PATCH"}, {password});
 
 function UserDetailModal(props) {
     const [status, setStatus] = useState("");
+    const dispatch = useDispatch();
 
     const handleSubmit = e => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
+        // 確認密碼是否正確
         if (data.get("password") !== data.get("passwordConfirm")) {
             setStatus("密碼互不相符");
             return;
         }
-        console.log({
-            newPassword: data.get("password"),
-        });
-        // 確認密碼是否正確
         // 修改密碼
-        props.setModalStatus(false);
+        updatePassword(data.get("password"))
+            .then(() => {
+                // Store AuthToken
+                localStorage.removeItem("atari_token");
+                props.setModalStatus(false);
+                // ResetUser
+                dispatch(ResetUser());
+                history.push("./");
+            })
+            .catch((e) => {
+                console.error(e);
+            });
     }
 
     return (
