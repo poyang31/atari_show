@@ -75,7 +75,7 @@ function IndexPage(props) {
                             Home Less Helper
                         </Typography>
                         <Typography variant="h1">
-                            我愛房東網
+                            高科超棒租屋網
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
                             找到你夢寐以求的房子

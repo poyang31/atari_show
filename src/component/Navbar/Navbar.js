@@ -26,7 +26,7 @@ export default function NavBar() {
                             {/* <Link><HomeIcon/></Link> */}
                             <HomeIcon sx={{mr: 1}} />
                             <Typography variant="h6" component="span">
-                                我愛房東網
+                                高科超棒租屋網
                             </Typography>
                         </IconButton>
                     </Box>
