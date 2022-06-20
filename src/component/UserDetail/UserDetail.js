@@ -27,6 +27,10 @@ function UserDetail() {
     const [imgSrc, setImgSrc] = useState("");
     const [ModalStatus, setModalStatus] = useState(false);
 
+    if (!userData.username) {
+        history.push("./");
+    }
+
     // 處理登出
     const handleLogout = () => {
         localStorage.removeItem("atari_token");
