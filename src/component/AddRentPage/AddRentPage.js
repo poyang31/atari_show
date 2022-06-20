@@ -15,14 +15,6 @@ import Radio from "@mui/material/Radio"
 import Button from "@mui/material/Button"
 import client from "../../client/http";
 
-const sendData = (
-    username,
-    password
-) => client("/house", {method: "POST"}, {
-    username,
-    password
-});
-
 function AddRentPage(props) {
     const {cityData} = props;
     const [status, setStatus] = useState("");
@@ -87,13 +79,11 @@ function AddRentPage(props) {
         {id: 7, rentMoneyItem: "瓦斯費", status: false},
     ]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        sendData(
-            data.get("username"),
-            data.get("password")
-        )
+    const sendData = () => client("/house", {method: "POST"}, {
+    });
+
+    const handleSend = () => {
+        sendData()
             .then((res) => {
                 console.log(res)
             })
@@ -155,8 +145,6 @@ function AddRentPage(props) {
                 flexDirection: "column",
                 height: "auto"
             }}
-            component="form"
-            onSubmit={handleSubmit}
         >
             <Typography
                 component="p"
@@ -421,8 +409,11 @@ function AddRentPage(props) {
                 <Stack direction="row" sx={{alignItems: "center"}}> {/* 性別要求 */}
                     <Typography variant="h6">性別要求:</Typography>
                     <FormControl>
-                        <RadioGroup row name="row-radio-buttons-group" value={SexRequirement}
-                                    onChange={e => setSexRequirement(e.target.value)}>
+                        <RadioGroup
+                            row
+                            name="row-radio-buttons-group"
+                            value={SexRequirement}
+                            onChange={e => setSexRequirement(e.target.value)}>
                             <FormControlLabel value="限女性" control={<Radio/>} label="限女性"/>
                             <FormControlLabel value="限男性" control={<Radio/>} label="限男性"/>
                             <FormControlLabel value="皆可" control={<Radio/>} label="皆可"/>
@@ -433,8 +424,11 @@ function AddRentPage(props) {
                 <Stack direction="row" sx={{alignItems: "center"}}> {/* 可否開伙 */}
                     <Typography variant="h6">開伙:</Typography>
                     <FormControl>
-                        <RadioGroup row name="row-radio-buttons-group" value={ableToFire}
-                                    onChange={e => setAbleToFire(e.target.value)}>
+                        <RadioGroup
+                            row
+                            name="row-radio-buttons-group"
+                            value={ableToFire}
+                            onChange={e => setAbleToFire(e.target.value)}>
                             <FormControlLabel value={true} control={<Radio/>} label="可"/>
                             <FormControlLabel value={false} control={<Radio/>} label="不可"/>
                         </RadioGroup>
@@ -445,7 +439,7 @@ function AddRentPage(props) {
                     <Typography variant="h6">養寵物:</Typography>
                     <FormControl>
                         <RadioGroup row name="row-radio-buttons-group" value={AblePet}
-                                    onChange={e => setAblePet(e.target.value)}>
+                            onChange={e => setAblePet(e.target.value)}>
                             <FormControlLabel value={true} control={<Radio/>} label="可"/>
                             <FormControlLabel value={false} control={<Radio/>} label="不可"/>
                         </RadioGroup>
@@ -455,9 +449,12 @@ function AddRentPage(props) {
                 <Stack direction="row" sx={{alignItems: "center"}}> {/* 可遷入日 */}
                     <Typography variant="h6">可遷入日:</Typography>
                     <input type="date" id="ableToGetInDate" name="ableToGetInDate" style={{height: 30}}
-                           value={ableToGetInDate} onChange={e => setAbleToGetInDate(e.target.value)}/>
-                    <Button variant="contained" color="primary" sx={{ml: 3}}
-                            onClick={() => setAbleToGetInDate(defaultDateValue)}>
+                        value={ableToGetInDate} onChange={e => setAbleToGetInDate(e.target.value)}/>
+                    <Button
+                        variant="contained"
+                        color="primary" sx={{ml: 3}}
+                        onClick={() => setAbleToGetInDate(defaultDateValue)}
+                    >
                         可隨時遷入
                     </Button>
                 </Stack>
@@ -572,7 +569,7 @@ function AddRentPage(props) {
                 </Stack>
 
                 <Stack direction="row" sx={{alignItems: "center", justifyContent: "flex-end"}}> {/* 照片 */}
-                    <Button variant="contained" color="primary" size="large">
+                    <Button variant="contained" color="primary" size="large" onClick={handleSend}>
                         新增送出
                     </Button>
                     <Button variant="contained" sx={{backgroundColor: "#ab003c"}} size="large">
