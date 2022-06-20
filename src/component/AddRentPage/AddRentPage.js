@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import {useSelector} from "react-redux";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography"
@@ -16,8 +17,9 @@ import Button from "@mui/material/Button"
 import client from "../../client/http";
 
 function AddRentPage(props) {
-    const {cityData} = props;
+    const { cityData } = props;
     const [status, setStatus] = useState("");
+    const userData = useSelector((state) => state.User);
     //存放資料
     const [floorStatus, setFloorStatus] = useState(false); //出租樓層
     const [addressCity, setAddressCity] = useState(""); //地址縣市
@@ -29,10 +31,10 @@ function AddRentPage(props) {
     const [rentMoney, setRentMoney] = useState(); //租金金額
     const [deposit, setDeposit] = useState("面議"); //押金
     const [rooms, setRooms] = useState([
-        {id: 1, roomName: "總房間", roomNumber: 0},
-        {id: 2, roomName: "房間", roomNumber: 0},
-        {id: 3, roomName: "衛浴", roomNumber: 0},
-        {id: 4, roomName: "大廳", roomNumber: 0},
+        { id: 1, roomName: "總房間", roomNumber: 0 },
+        { id: 2, roomName: "房間", roomNumber: 0 },
+        { id: 3, roomName: "衛浴", roomNumber: 0 },
+        { id: 4, roomName: "大廳", roomNumber: 0 },
     ]); //房間數量
     const [ShortestRentTime, setShortestRentTime] = useState(""); //最短租期
     const [SexRequirement, setSexRequirement] = useState("皆可"); //性別要求 租住條件
@@ -45,115 +47,81 @@ function AddRentPage(props) {
     const [images, setImages] = useState([]); //使用者傳入照片
     const [ImgURL, setImgURL] = useState([]); //顯示照片
     const [furnitureArray, setFurnitureArray] = useState([ //提供個人設備
-        {id: 1, furniture: "床", status: false},
-        {id: 2, furniture: "書桌", status: false},
-        {id: 3, furniture: "冰箱", status: false},
-        {id: 4, Furniture: "冷氣", status: false},
-        {id: 5, furniture: "熱水器", status: false},
-        {id: 6, furniture: "電視", status: false},
+        { id: 1, furniture: "床", status: false },
+        { id: 2, furniture: "書桌", status: false },
+        { id: 3, furniture: "冰箱", status: false },
+        { id: 4, Furniture: "冷氣", status: false },
+        { id: 5, furniture: "熱水器", status: false },
+        { id: 6, furniture: "電視", status: false },
     ]);
     const [ServiceArray, setServiceArray] = useState([ //提供服務
-        {id: 1, Service: "管理室", status: false},
-        {id: 2, Service: "回收室", status: false},
-        {id: 3, Service: "網路", status: false},
-        {id: 4, Service: "第四台", status: false},
-        {id: 5, Service: "電梯", status: false},
-        {id: 6, Service: "車位", status: false},
+        { id: 1, Service: "管理室", status: false },
+        { id: 2, Service: "回收室", status: false },
+        { id: 3, Service: "網路", status: false },
+        { id: 4, Service: "第四台", status: false },
+        { id: 5, Service: "電梯", status: false },
+        { id: 6, Service: "車位", status: false },
     ]);
     const [PublicFacilityArray, setPublicFacilityArray] = useState([ //提供公共設施
-        {id: 1, PublicFacility: "游泳池", status: false},
-        {id: 2, PublicFacility: "視聽室", status: false},
+        { id: 1, PublicFacility: "游泳池", status: false },
+        { id: 2, PublicFacility: "視聽室", status: false },
     ]);
     const [IdentifyRequirement, setIdentifyRequirement] = useState([ //身分要求 租住條件
-        {id: 1, Identify: "學生", status: false},
-        {id: 2, Identify: "上班族", status: false},
-        {id: 3, Identify: "家庭", status: false},
+        { id: 1, Identify: "學生", status: false },
+        { id: 2, Identify: "上班族", status: false },
+        { id: 3, Identify: "家庭", status: false },
     ]);
     const [rentMoneyHaveArray, setRentMoneyHaveArray] = useState([ //租金包含內容
-        {id: 1, rentMoneyItem: "管理費", status: false},
-        {id: 2, rentMoneyItem: "清潔費", status: false},
-        {id: 3, rentMoneyItem: "第四台", status: false},
-        {id: 4, rentMoneyItem: "網路", status: false},
-        {id: 5, rentMoneyItem: "水費", status: false},
-        {id: 6, rentMoneyItem: "電費", status: false},
-        {id: 7, rentMoneyItem: "瓦斯費", status: false},
+        { id: 1, rentMoneyItem: "管理費", status: false },
+        { id: 2, rentMoneyItem: "清潔費", status: false },
+        { id: 3, rentMoneyItem: "第四台", status: false },
+        { id: 4, rentMoneyItem: "網路", status: false },
+        { id: 5, rentMoneyItem: "水費", status: false },
+        { id: 6, rentMoneyItem: "電費", status: false },
+        { id: 7, rentMoneyItem: "瓦斯費", status: false },
     ]);
 
-    const sendData = () => client("/house", {method: "POST"}, {
-        houseInfo: {
-            houseSize,
-            houseType,
-            roomType,
-            room
-        },
-        price,
-        depositMethod,
-        rentIncludes,
-        houseFace,
-        title,
-        contact: {
-            lineID,
-            phoneNumber
-        },
-        houseDescription,
-        equipmentAndServices: {
-            condition,
-            houseRule,
-            equipment,
-            service,
-            publicUtilities
-        },
-        address: {
-            city,
-            township,
-            others
-        },
-        isRented ,
-        rentInfo: {
-            date ,
-            atLeastTime
-        },
-        isRemoved
-    });
+    const sendData = () => client("/house", { method: "POST" },
+        {
+            houseInfo: {
+                houseSize: squareFeet,
+                houseType: houseType,
+                roomType: roomType,
+                room: "房間",
+            },
+            price: rentMoney,
+            depositMethod: deposit,
+            rentIncludes: rentMoneyHaveArray.filter(data => data.status === true),
+            houseFace: HouseForward,
+            title: Title,
+            contact: {
+                lineID: userData.lineId,
+                phoneNumber: userData.phone,
+            },
+            houseDescription: Describe,
+            equipmentAndServices: {
+                condition: IdentifyRequirement,
+                houseRule: rentMoneyHaveArray,
+                equipment: furnitureArray,
+                service: ServiceArray,
+                publicUtilities: PublicFacilityArray
+            },
+            address: {
+                city: addressCity,
+                township: addressArea,
+                others: Address
+            },
+            isRented: false,
+            rentInfo: {
+                date: ableToGetInDate,
+                atLeastTime: ShortestRentTime
+            },
+            isRemoved: false,
+        }
+    );
 
     const handleSend = () => {
         sendData(
-            {
-                houseInfo: {
-                    houseSize:squareFeet,
-                    houseType:houseType,
-                    roomType:roomType,
-                    room:"房間",
-                },
-                price:rentMoney,
-                depositMethod:deposit,
-                rentIncludes:rentMoneyHaveArray.filter(data=>data.status == true),
-                houseFace:HouseForward,
-                title:Title,
-                contact: {
-                    lineID:"UserLineID",
-                    phoneNumber:"0970540864",
-                },
-                houseDescription:Describe,
-                equipmentAndServices: {
-                    condition:IdentifyRequirement,
-                    houseRule:rentMoneyHaveArray,
-                    equipment:furnitureArray,
-                    service:ServiceArray,
-                    publicUtilities:PublicFacilityArray
-                },
-                address: {
-                    city:addressCity,
-                    township:addressArea,
-                    others:Address
-                },
-                isRented:false,
-                rentInfo: {
-                    date:ableToGetInDate ,
-                    atLeastTime:ShortestRentTime
-                },
-                isRemoved:false,
-            }
         )
             .then((res) => {
                 console.log(res)
@@ -221,13 +189,13 @@ function AddRentPage(props) {
                 component="p"
                 variant="p"
                 color="#e00"
-                sx={{mt: 1}}
+                sx={{ mt: 1 }}
             >
                 {status}
             </Typography>
             <Typography variant="h4" color="initial">請選擇欲出租的房屋類型</Typography>
-            <Stack sx={{border: 1, borderColor: "grey.200", width: "60%", p: 2}} spacing={2}>
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房屋類型 */}
+            <Stack sx={{ border: 1, borderColor: "grey.200", width: "60%", p: 2 }} spacing={2}>
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房屋類型 */}
                     <Typography variant="h6">房屋類型:</Typography>
                     <FormControl>
                         <InputLabel>房屋類型:</InputLabel>
@@ -236,7 +204,7 @@ function AddRentPage(props) {
                             id="demo-simple-select"
                             value={houseType}
                             defaultValue={""}
-                            sx={{width: 150}}
+                            sx={{ width: 150 }}
                             onChange={e => setHouseType(e.target.value)}
                         >
                             <MenuItem value={""} disabled>房屋類型:</MenuItem>
@@ -246,7 +214,7 @@ function AddRentPage(props) {
                     </FormControl>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房間類型 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房間類型 */}
                     <Typography variant="h6">房間類型:</Typography>
                     <FormControl>
                         <InputLabel>房間類型:</InputLabel>
@@ -255,7 +223,7 @@ function AddRentPage(props) {
                             id="demo-simple-select"
                             value={roomType}
                             defaultValue={""}
-                            sx={{width: 150}}
+                            sx={{ width: 150 }}
                             onChange={handleRoomType}
 
                         >
@@ -268,7 +236,7 @@ function AddRentPage(props) {
                     </FormControl>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 地址 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 地址 */}
                     <Typography variant="h6">出租地址:</Typography>
                     <FormControl>
                         <InputLabel>縣市</InputLabel>
@@ -277,7 +245,7 @@ function AddRentPage(props) {
                             id="demo-simple-select"
                             value={addressCity}
                             defaultValue=""
-                            sx={{width: 100}}
+                            sx={{ width: 100 }}
                             onChange={e => setAddressCity(e.target.value)}
                         >
                             <MenuItem value={""} disabled>縣市:</MenuItem>
@@ -293,7 +261,7 @@ function AddRentPage(props) {
                             id="demo-simple-select"
                             value={addressArea}
                             defaultValue=""
-                            sx={{width: 100}}
+                            sx={{ width: 100 }}
                             onChange={e => setAddressArea(e.target.value)}
                         >
                             <MenuItem value={""} disabled>鄉鎮市區</MenuItem>
@@ -305,84 +273,84 @@ function AddRentPage(props) {
                     <TextField
                         id="address"
                         label="地址名稱"
-                        sx={{pl: 1}}
+                        sx={{ pl: 1 }}
                         value={Address}
                         onChange={e => setAddress(e.target.value)}
                     />
                 </Stack>
 
                 {floorStatus &&
-                    <Stack direction="row" sx={{alignItems: "center"}}> {/* 樓層 */}
+                    <Stack direction="row" sx={{ alignItems: "center" }}> {/* 樓層 */}
                         <Typography variant="h6">樓層:</Typography>
                         <TextField
                             id="floor"
                             label="樓層"
-                            sx={{pl: 1}}
+                            sx={{ pl: 1 }}
                         />
                         樓之
                         <TextField
                             id="room-id"
                             label="編號"
-                            sx={{pl: 1, pr: 3}}
+                            sx={{ pl: 1, pr: 3 }}
                         />
                         總樓層:
                         <TextField
                             id="all-floor-number"
                             label="總樓層數量"
-                            sx={{pl: 1}}
+                            sx={{ pl: 1 }}
                         />
                     </Stack>}
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房屋坪數 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房屋坪數 */}
                     <Typography variant="h6">房屋坪數:</Typography>
                     <TextField
                         id="squareFeet"
                         label="坪數"
-                        sx={{pl: 1}}
+                        sx={{ pl: 1 }}
                         value={squareFeet}
                         onChange={e => setSquareFeet(e.target.value)}
                     />坪
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房數 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房數 */}
                     <Typography variant="h6">房間數量:</Typography>
                     <TextField
                         id="squareFeet"
                         label="房間數量"
-                        sx={{pl: 1, width: 100}}
+                        sx={{ pl: 1, width: 100 }}
                         value={rooms[1].number}
                         onChange={e => handleSetRoom(e.target.value, "房間")}
                     />
-                    <Typography variant="h6" sx={{pl: 1}}>衛浴數量:</Typography>
+                    <Typography variant="h6" sx={{ pl: 1 }}>衛浴數量:</Typography>
                     <TextField
                         id="squareFeet"
                         label="衛浴數量"
-                        sx={{pl: 1, width: 100}}
+                        sx={{ pl: 1, width: 100 }}
                         value={rooms[2].number}
                         onChange={e => handleSetRoom(e.target.value, "衛浴")}
                     />
-                    <Typography variant="h6" sx={{pl: 1}}>大廳數量:</Typography>
+                    <Typography variant="h6" sx={{ pl: 1 }}>大廳數量:</Typography>
                     <TextField
                         id="squareFeet"
                         label="大廳數量"
-                        sx={{pl: 1, width: 100}}
+                        sx={{ pl: 1, width: 100 }}
                         value={rooms[2].number}
                         onChange={e => handleSetRoom(e.target.value, "大廳")}
                     />
-                    <Button variant="contained" color="primary" sx={{ml: 5}}>
+                    <Button variant="contained" color="primary" sx={{ ml: 5 }}>
                         新增更多房間
                     </Button>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 租金 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 租金 */}
                     <Typography variant="h6">租金:</Typography>
                     <TextField
                         id="rentMoney"
                         value={rentMoney}
                         onChange={e => setRentMoney(e.target.value)}
-                        sx={{backgroundColor: "white"}}
+                        sx={{ backgroundColor: "white" }}
                     />
-                    <Typography variant="inherit" color="initial" sx={{pl: 3}}>押金:</Typography>
+                    <Typography variant="inherit" color="initial" sx={{ pl: 3 }}>押金:</Typography>
                     <FormControl>
                         <InputLabel>押金</InputLabel>
                         <Select
@@ -390,7 +358,7 @@ function AddRentPage(props) {
                             id="demo-simple-select"
                             defaultValue={"面議"}
                             value={deposit}
-                            sx={{width: 150}}
+                            sx={{ width: 150 }}
                             onChange={e => setDeposit(e.target.value)}
                         >
                             <MenuItem value={"面議"}>面議</MenuItem>
@@ -401,7 +369,7 @@ function AddRentPage(props) {
                     </FormControl>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房屋朝向 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房屋朝向 */}
                     <Typography variant="h6">房屋朝向:</Typography>
                     <FormControl>
                         <InputLabel>房屋朝向</InputLabel>
@@ -410,7 +378,7 @@ function AddRentPage(props) {
                             id="demo-simple-select"
                             defaultValue={"朝向"}
                             value={HouseForward}
-                            sx={{width: 150}}
+                            sx={{ width: 150 }}
                             onChange={e => setHouseForward(e.target.value)}
                         >
                             <MenuItem value={"朝向"} disabled>朝向</MenuItem>
@@ -424,7 +392,7 @@ function AddRentPage(props) {
                 </Stack>
 
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 租金包含 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 租金包含 */}
                     <Typography variant="h6">租金包含:</Typography>
                     {rentMoneyHaveArray.map((Item) => {
                         return (
@@ -445,19 +413,19 @@ function AddRentPage(props) {
 
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 最短租期 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 最短租期 */}
                     <Typography variant="h6">最短租期:</Typography>
                     <TextField
                         id="ShortestRentTime"
                         label="最短租期包含"
                         value={ShortestRentTime}
                         onChange={e => setShortestRentTime(e.target.value)}
-                        sx={{width: "12%"}}
+                        sx={{ width: "12%" }}
                     />
                     年
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 身分要求 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 身分要求 */}
                     <Typography variant="h6">身分要求:</Typography>
                     {IdentifyRequirement.map((Item) => {
                         return (
@@ -477,7 +445,7 @@ function AddRentPage(props) {
                     })}
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 性別要求 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 性別要求 */}
                     <Typography variant="h6">性別要求:</Typography>
                     <FormControl>
                         <RadioGroup
@@ -485,14 +453,14 @@ function AddRentPage(props) {
                             name="row-radio-buttons-group"
                             value={SexRequirement}
                             onChange={e => setSexRequirement(e.target.value)}>
-                            <FormControlLabel value="限女性" control={<Radio/>} label="限女性"/>
-                            <FormControlLabel value="限男性" control={<Radio/>} label="限男性"/>
-                            <FormControlLabel value="皆可" control={<Radio/>} label="皆可"/>
+                            <FormControlLabel value="限女性" control={<Radio />} label="限女性" />
+                            <FormControlLabel value="限男性" control={<Radio />} label="限男性" />
+                            <FormControlLabel value="皆可" control={<Radio />} label="皆可" />
                         </RadioGroup>
                     </FormControl>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 可否開伙 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 可否開伙 */}
                     <Typography variant="h6">開伙:</Typography>
                     <FormControl>
                         <RadioGroup
@@ -500,37 +468,37 @@ function AddRentPage(props) {
                             name="row-radio-buttons-group"
                             value={ableToFire}
                             onChange={e => setAbleToFire(e.target.value)}>
-                            <FormControlLabel value={true} control={<Radio/>} label="可"/>
-                            <FormControlLabel value={false} control={<Radio/>} label="不可"/>
+                            <FormControlLabel value={true} control={<Radio />} label="可" />
+                            <FormControlLabel value={false} control={<Radio />} label="不可" />
                         </RadioGroup>
                     </FormControl>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 可否養寵物 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 可否養寵物 */}
                     <Typography variant="h6">養寵物:</Typography>
                     <FormControl>
                         <RadioGroup row name="row-radio-buttons-group" value={AblePet}
                             onChange={e => setAblePet(e.target.value)}>
-                            <FormControlLabel value={true} control={<Radio/>} label="可"/>
-                            <FormControlLabel value={false} control={<Radio/>} label="不可"/>
+                            <FormControlLabel value={true} control={<Radio />} label="可" />
+                            <FormControlLabel value={false} control={<Radio />} label="不可" />
                         </RadioGroup>
                     </FormControl>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 可遷入日 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 可遷入日 */}
                     <Typography variant="h6">可遷入日:</Typography>
-                    <input type="date" id="ableToGetInDate" name="ableToGetInDate" style={{height: 30}}
-                        value={ableToGetInDate} onChange={e => setAbleToGetInDate(e.target.value)}/>
+                    <input type="date" id="ableToGetInDate" name="ableToGetInDate" style={{ height: 30 }}
+                        value={ableToGetInDate} onChange={e => setAbleToGetInDate(e.target.value)} />
                     <Button
                         variant="contained"
-                        color="primary" sx={{ml: 3}}
+                        color="primary" sx={{ ml: 3 }}
                         onClick={() => setAbleToGetInDate(defaultDateValue)}
                     >
                         可隨時遷入
                     </Button>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 提供私人設備 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 提供私人設備 */}
                     <Typography variant="h6">提供私人設備:</Typography>
                     {furnitureArray.map((Item) => {
                         return (
@@ -550,7 +518,7 @@ function AddRentPage(props) {
                     })}
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 提供服務 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 提供服務 */}
                     <Typography variant="h6">提供服務:</Typography>
                     {ServiceArray.map((Item) => {
                         return (
@@ -570,7 +538,7 @@ function AddRentPage(props) {
                     })}
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 提供公共設施 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 提供公共設施 */}
                     <Typography variant="h6">提供公共設施:</Typography>
                     {PublicFacilityArray.map((Item) => {
                         return (
@@ -590,8 +558,8 @@ function AddRentPage(props) {
                     })}
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房屋標題 */}
-                    <Typography variant="h6" sx={{pr: 5}}>房屋標題:</Typography>
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房屋標題 */}
+                    <Typography variant="h6" sx={{ pr: 5 }}>房屋標題:</Typography>
                     <TextField
                         required
                         id="House-title-required"
@@ -601,8 +569,8 @@ function AddRentPage(props) {
                     />
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 房屋敘述 */}
-                    <Typography variant="h6" sx={{pr: 5}}>房屋敘述:</Typography>
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 房屋敘述 */}
+                    <Typography variant="h6" sx={{ pr: 5 }}>房屋敘述:</Typography>
                     <TextField
                         id="outlined-multiline-static"
                         label="房屋敘述"
@@ -610,11 +578,11 @@ function AddRentPage(props) {
                         rows={4}
                         value={Describe}
                         onChange={e => setDescribe(e.target.value)}
-                        sx={{width: "70%"}}
+                        sx={{ width: "70%" }}
                     />
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 上傳照片 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 上傳照片 */}
                     <Typography variant="h6">上傳照片:</Typography>
                     <Button
                         variant="contained"
@@ -630,20 +598,20 @@ function AddRentPage(props) {
                     </Button>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center"}}> {/* 照片 */}
+                <Stack direction="row" sx={{ alignItems: "center" }}> {/* 照片 */}
                     <Typography variant="h6">以上傳照片:</Typography>
-                    <Stack direction="row" spacing={2} sx={{flexWrap: "wrap"}}>
+                    <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap" }}>
                         {ImgURL && ImgURL.map((url, i) => {
-                            return <img key={i} src={url} width="475" height="450" alt={i}/>
+                            return <img key={i} src={url} width="475" height="450" alt={i} />
                         })}
                     </Stack>
                 </Stack>
 
-                <Stack direction="row" sx={{alignItems: "center", justifyContent: "flex-end"}}> {/* 照片 */}
+                <Stack direction="row" sx={{ alignItems: "center", justifyContent: "flex-end" }}> {/* 照片 */}
                     <Button variant="contained" color="primary" size="large" onClick={handleSend}>
                         新增送出
                     </Button>
-                    <Button variant="contained" sx={{backgroundColor: "#ab003c"}} size="large">
+                    <Button variant="contained" sx={{ backgroundColor: "#ab003c" }} size="large">
                         取消
                     </Button>
                 </Stack>

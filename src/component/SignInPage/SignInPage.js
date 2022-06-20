@@ -37,6 +37,14 @@ export default function SignInPage() {
         event.preventDefault();
         setStatus("");
         const data = new FormData(event.currentTarget);
+        if (!data.get("username")) {
+            setStatus("請輸入使用者代號");
+            return;
+        }
+        if (!data.get("password")) {
+            setStatus("請輸入密碼");
+            return;
+        }
         login(
             data.get("username"),
             data.get("password")
